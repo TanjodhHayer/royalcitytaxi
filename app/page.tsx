@@ -1,5 +1,21 @@
 import Image from "next/image";
+export default function Home() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-yellow-400 text-black">
+      <Image src="/assets/logo.png" alt="Royal City Taxi Logo" width={150} height={50} />
+      <h1 className="text-4xl font-bold"> Welcome to Royal City Taxi</h1>
+      <p className="mt-4 text-lg">Reliable taxi services in Westminster</p>
+      <a
+        href="/booking"
+        className="mt-6 rounded-lg bg-black px-6 py-3 text-white hover:bg-gray-800"
+      >
+        Book a Ride
+      </a>
+    </div>
+  );
+}
 
+/* 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -99,3 +115,4 @@ export default function Home() {
     </div>
   );
 }
+*/

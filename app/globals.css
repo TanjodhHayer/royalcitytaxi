@@ -1,21 +1,71 @@
+/* globals.css - Improved Styling */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root Variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary-color: #0047AB; /* Royal Blue */
+  --secondary-color: #FFD700; /* Gold */
+  --text-color: #333;
+  --background-color: #f8f9fa;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-[var(--background-color)] text-[var(--text-color)] font-sans;
+}
+
+/* Utility Styles */
+.container {
+  @apply max-w-6xl mx-auto px-4;
+}
+
+.section {
+  @apply py-16 text-center;
+}
+
+h1 {
+  @apply text-4xl font-bold text-[var(--primary-color)] mb-6;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-[var(--primary-color)] mb-4;
+}
+
+p {
+  @apply text-lg text-gray-700 leading-relaxed;
+}
+
+/* Buttons */
+.btn {
+  @apply px-6 py-3 bg-[var(--primary-color)] text-white font-medium rounded-lg shadow-md transition-all;
+}
+
+.btn:hover {
+  @apply bg-blue-800;
+}
+
+/* Navbar */
+.navbar {
+  @apply bg-[var(--primary-color)] text-white py-4 shadow-md;
+}
+
+.navbar-container {
+  @apply flex justify-between items-center max-w-6xl mx-auto px-4;
+}
+
+.navbar-logo {
+  @apply text-xl font-bold;
+}
+
+.navbar-links {
+  @apply flex gap-6;
+}
+
+.navbar-links a {
+  @apply text-white text-lg font-medium transition-all;
+}
+
+.navbar-links a:hover {
+  @apply text-[var(--secondary-color)];
 }
