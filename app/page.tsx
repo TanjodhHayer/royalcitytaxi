@@ -10,8 +10,7 @@ export default function Home() {
         </h1>
         <h2>Call 604-526-6666</h2> 
         <p className="text-lg text-gray-300 mt-4 max-w-2xl">
-          Serving all of New Westminster, South Burnaby, Coquitlam, Annacis Island, North Surrey,
-          East Richmond, and YVR - Vancouver Airport.
+          Serving all of New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey,and YVR - Vancouver Airport.
         </p>
       </section>
 
@@ -55,6 +54,13 @@ export default function Home() {
           <p className="text-lg"><strong>Per km:</strong> $2.18</p>
           <p className="text-lg"><strong>Waiting charge:</strong> $38.93 /hour</p>
         </div>
+        <Image
+            src="/assets/apps.jpg"
+            alt="Royal City Taxi Car"
+            width={600}
+            height={400}
+            className="rounded-lg shadow-md"
+          />
       </section>
     </div>
   );

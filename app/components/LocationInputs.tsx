@@ -1,6 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import { Autocomplete } from "@react-google-maps/api";
+import { useEffect, useState, useRef } from "react";
 
 interface LocationInputProps {
   label: string;
@@ -8,37 +7,32 @@ interface LocationInputProps {
 }
 
 export default function LocationInput({ label, onSelect }: LocationInputProps) {
-  const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   useEffect(() => {
-    if (autocompleteRef.current) {
-      autocompleteRef.current.addListener("place_changed", () => {
-        const place = autocompleteRef.current?.getPlace();
-        if (place?.formatted_address && place.geometry?.location) {
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
-          setInputValue(place.formatted_address);
-          onSelect(place.formatted_address, lat, lng); 
-        }
-      });
+    if (typeof window !== "undefined" && window.google && window.google.maps) {
+      if (inputRef.current && !autocompleteRef.current) {
+        autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current);
+        autocompleteRef.current.addListener("place_changed", () => {
+          const place = autocompleteRef.current?.getPlace();
+          if (place && place.geometry) {
+            onSelect(place.formatted_address || "", place.geometry.location?.lat() || 0, place.geometry.location?.lng() || 0);
+          }
+        });
+      }
     }
   }, []);
 
   return (
-    <div className="mb-4">
+    <div>
       <label className="block text-lg font-semibold mb-1">{label}</label>
-      <Autocomplete
-        onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
-      >
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          className="w-full p-3 border border-gray-700 rounded bg-gray-900 text-white"
-          placeholder="Start typing..."
-        />
-      </Autocomplete>
+      <input
+        ref={inputRef}
+        type="text"
+        className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white"
+        placeholder="Enter location"
+      />
     </div>
   );
 }
