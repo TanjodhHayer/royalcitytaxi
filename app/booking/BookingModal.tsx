@@ -1,4 +1,4 @@
-"use client";
+
 import { useState } from "react";
 import LocationInput from "../components/LocationInputs";
 
@@ -18,7 +18,7 @@ export default function BookingModal({ isOpen, onClose }: { isOpen: boolean; onC
   return (
     <div className="center-page">
       <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-red-500 text-center mb-4">Book a Ride</h1>
+        <h1 className="text-2xl font-bold text-red-500 text-right mb-4">Book a Ride</h1>
         
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -47,13 +47,15 @@ export default function BookingModal({ isOpen, onClose }: { isOpen: boolean; onC
             />
           </div>
 
-          <div className="flex justify-between">
-            <button type="button" className="red-button bg-gray-600 px-4 py-2 rounded" onClick={onClose}>
-              Cancel
-            </button>
+          <div>
             <button type="submit" className="red-button bg-red-500 px-4 py-2 rounded">
               Confirm Booking
             </button>
+            </div>
+          <div>
+            <button type="button" className="red-button bg-gray-600 px-4 py-2 rounded" onClick={onClose}>
+              Cancel
+            </button> 
           </div>
         </form>
       </div>

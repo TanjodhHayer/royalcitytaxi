@@ -8,7 +8,8 @@
   --primary-color: #000000;
   --secondary-color: #ff0000;
   --text-color: #FFFFFF;
-  --background-color: #333333;
+  --background-color: #141414;
+  --white:#FFFFFF;
 }
 
 body {
@@ -73,7 +74,7 @@ button {
 
 /* Navbar */
 .navbar {
-  @apply bg-[var(--primary-color)] text-white py-4 shadow-md w-full;
+  @apply bg-[var(--white)] text-white py-4 shadow-md w-full;
 }
 
 .navbar-container {
@@ -93,7 +94,7 @@ button {
 }
 
 .navbar-links a {
-  @apply text-white text-lg font-medium transition-all;
+  @apply  text-black text-lg font-medium transition-all;
 }
 
 .navbar-links a:hover {
@@ -102,4 +103,15 @@ button {
 
 .navbar-links-vertical a:hover {
   @apply text-[var(--secondary-color)];
+}
+
+
+.welcome{
+  flex: auto;
+  text-align: center;
+}
+
+.serving{
+  @apply text-[var(--secondary-color)]
+  font-semibold
 }

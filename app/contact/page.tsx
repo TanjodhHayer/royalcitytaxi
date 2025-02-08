@@ -78,7 +78,7 @@ import Image from "next/image";
                   required
                 ></textarea>
               </div>
-              <button type="submit" className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition">
+              <button type="submit" className=" red-button w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition">
                 Send Message
               </button>
             </form>
