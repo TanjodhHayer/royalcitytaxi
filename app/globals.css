@@ -6,7 +6,7 @@
 /* Root Variables */
 :root {
   --primary-color: #000000;
-  --secondary-color: #FFC107;
+  --secondary-color: #ff0000;
   --text-color: #FFFFFF;
   --background-color: #333333;
 }
@@ -17,11 +17,11 @@ body {
 
 /* Utility Styles */
 .container {
-  @apply max-w-4xl mx-auto px-6;
+  @apply max-w-6xl mx-auto px-6; /* Increase width */
 }
 
 .section {
-  @apply py-16 flex flex-col items-center justify-center text-center;
+  @apply py-16 flex flex-col md:grid md:grid-cols-2 gap-8 text-center;
 }
 
 h1 {
@@ -47,7 +47,7 @@ p {
 }
 
 .contact-info {
-  @apply flex-1 space-y-4 text-left;
+  @apply flex-1 space-y-4 text-center; /* Changed from text-left */
 }
 
 .contact-info p {
@@ -64,7 +64,11 @@ textarea {
 }
 
 button {
-  @apply bg-[var(--secondary-color)] text-white px-6 py-3 font-bold rounded-lg shadow-md transition-all hover:bg-red-700;
+  @apply text-white px-6 py-3 font-bold rounded-lg shadow-md transition-all;
+}
+
+.red-button{
+  @apply bg-[var(--secondary-color)]  hover:bg-red-700;
 }
 
 /* Navbar */
@@ -93,5 +97,9 @@ button {
 }
 
 .navbar-links a:hover {
+  @apply text-[var(--secondary-color)];
+}
+
+.navbar-links-vertical a:hover {
   @apply text-[var(--secondary-color)];
 }

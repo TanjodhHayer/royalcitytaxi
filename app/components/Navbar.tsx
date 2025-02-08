@@ -45,9 +45,7 @@ export default function Navbar() {
           <div className="navbar-links-vertical">
             <a href="/">Home</a>
             <a href="/services">Services</a>
-            <button onClick={() => setIsBookingOpen(true)} className="bg-red-500 px-4 py-2 rounded text-white">
-              Book a Ride
-            </button>
+            <a href="#" onClick={(e) => { e.preventDefault(); setIsBookingOpen(true); }} className="text-white hover:text-gray-300 transition">Book a Ride</a>
             <a href="/contact">Contact</a>
           </div>
         )}

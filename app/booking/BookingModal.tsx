@@ -39,7 +39,7 @@ export default function BookingModal({ isOpen, onClose }: { isOpen: boolean; onC
           <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
 
           <div>
-            <label className="block text-lg font-semibold mb-1">Date & Time</label>
+            <label className="block text-lg font-semibold mb-1">Date</label>
             <input
               type="date"
               className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white"
@@ -48,10 +48,10 @@ export default function BookingModal({ isOpen, onClose }: { isOpen: boolean; onC
           </div>
 
           <div className="flex justify-between">
-            <button type="button" className="bg-gray-600 px-4 py-2 rounded" onClick={onClose}>
+            <button type="button" className="red-button bg-gray-600 px-4 py-2 rounded" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition">
+            <button type="submit" className="red-button bg-red-500 px-4 py-2 rounded">
               Confirm Booking
             </button>
           </div>
