@@ -116,7 +116,7 @@ export default function ContactPage() {
             </div>
             {success && <p className="text-green-500">{success}</p>}
             {error && <p className="text-red-500">{error}</p>}
-            <button type="submit" className={`w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
+            <button type="submit" className={`red-button w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
               {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
