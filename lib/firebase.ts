@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
@@ -21,25 +21,21 @@ console.log("Firebase initialized:", getApps().length > 0);
 
 // Function to check if the user is an admin
 export const checkIfAdmin = async (): Promise<boolean> => {
-  return new Promise<boolean>((resolve) => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            resolve(userData.admin === true); // Ensure it checks `admin` field
-          } else {
-            resolve(false);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          resolve(false);
-        }
+  const user = auth.currentUser; // Get the current user directly
+  if (user) {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        return userData.admin === true; // Return true if the admin field is true
       } else {
-        resolve(false);
+        return false; // Return false if no user data found
       }
-    });
-  });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return false;
+    }
+  }
+  return false; // Return false if no user is logged in
 };

@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useState } from "react";
 import { checkIfAdmin } from "@/lib/firebase"; // Path to your Firebase helper function
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase"; // Firebase initialization
 import { collection, getDocs } from "firebase/firestore";
 
@@ -19,26 +20,6 @@ export default function ViewContactMessages() {
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const router = useRouter();
-
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const adminStatus = await checkIfAdmin();
-        if (adminStatus) {
-          setIsAdmin(true);
-        } else {
-          router.push("/login"); // Redirect to login if not an admin
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        router.push("/login"); // Redirect on error
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAdminStatus();
-  }, [router]);
 
   // Fetch contact messages from Firestore
   useEffect(() => {
@@ -59,10 +40,6 @@ export default function ViewContactMessages() {
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (!isAdmin) {
-    return <div>You do not have permission to view contact messages.</div>;
   }
 
   return (

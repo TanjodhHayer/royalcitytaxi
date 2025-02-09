@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useState } from "react";
 import { checkIfAdmin } from "@/lib/firebase"; // Path to your Firebase helper function
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase"; // Firebase initialization
 import { collection, getDocs } from "firebase/firestore";
 
@@ -18,26 +19,6 @@ export default function ViewBookings() {
   const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const router = useRouter();
-
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const adminStatus = await checkIfAdmin();
-        if (adminStatus) {
-          setIsAdmin(true);
-        } else {
-          router.push("/login"); // Redirect to login if not an admin
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        router.push("/login"); // Redirect on error
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAdminStatus();
-  }, [router]);
 
   // Fetch bookings from Firestore
   useEffect(() => {
@@ -59,11 +40,6 @@ export default function ViewBookings() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  if (!isAdmin) {
-    return <div>You do not have permission to view bookings.</div>;
-  }
-
   return (
     <div>
       <h1 className="text-4xl font-bold text-red-500 text-center mb-6">All Bookings</h1>
