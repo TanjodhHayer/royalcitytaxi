@@ -1,13 +1,13 @@
+"use client";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { db } from "@/lib/firebase"; // Firebase initialization
+import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user"); // Default role is "user"
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -18,29 +18,36 @@ export default function SignUpPage() {
     setError(null);
 
     const auth = getAuth();
+    const passwordRegex = /(?=.*[!@#$%^&*(),.?":{}|<>])/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must contain at least one special character.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store the user's role in Firestore
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
-        role: role, // "admin" or "user"
       });
 
-      // Redirect to login page after sign-up
-      router.push("/login");
-    } catch (error) {
-      setError("Failed to sign up. Please try again.");
-      console.error(error);
-    } finally {
+      router.push("/login");  // Redirect to Login page after successful sign-up
+    } catch (error: any) {
+      if (error.code === "auth/email-already-in-use") {
+        setError("This email is already in use. Please try a different one.");
+      } else if (error.code === "auth/weak-password") {
+        setError("Password should be at least 6 characters.");
+      } else {
+        setError("Failed to sign up. Please try again.");
+      }
       setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="center-page">
       <h1 className="text-4xl font-bold text-center">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -59,19 +66,11 @@ export default function SignUpPage() {
           required
           className="p-3 border border-gray-300 rounded"
         />
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="p-3 border border-gray-300 rounded"
-        >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
         {error && <p className="text-red-500">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-500 text-white p-3 rounded disabled:opacity-50"
+          className="red-button bg-blue-500 text-white p-3 rounded disabled:opacity-50"
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>

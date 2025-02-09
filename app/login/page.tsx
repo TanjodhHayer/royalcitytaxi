@@ -1,6 +1,7 @@
+"use client";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export default function LoginPage() {
       if (token.claims.role === "admin") {
         router.push("/admin/view-bookings"); // Admin can access bookings
       } else {
-        router.push("/"); // Regular user redirection
+        router.push("/"); // Regular user redirection to homepage
       }
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
@@ -38,8 +39,8 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center">Login</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="center-page">
+        <h1 className="text-4xl font-bold text-center">Login</h1>
         <input
           type="email"
           value={email}
@@ -57,13 +58,21 @@ export default function LoginPage() {
           className="p-3 border border-gray-300 rounded"
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 text-white p-3 rounded disabled:opacity-50"
-        >
-          {loading ? "Logging in..." : "Log In"}
-        </button>
+        <div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="red-button bg-blue-500 text-white p-3 rounded disabled:opacity-50 w-full sm:w-auto"
+          >
+            {loading ? "Logging in..." : "Log In"}
+          </button>
+          <button
+            onClick={() => router.push("/signup")} // Redirect to Sign Up page
+            className="red-button bg-green-500 text-white p-3 rounded w-full sm:w-auto"
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </div>
   );

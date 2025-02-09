@@ -1,8 +1,8 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-// Firebase configuration
+// Firebase configuration using environment variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -13,30 +13,33 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, // Optional
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Ensure Firebase is initialized only once
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const db = getFirestore(app);
-const auth = getAuth(app);
+export const auth = getAuth(app); // Export auth for reuse
+console.log("Firebase initialized:", getApps().length > 0);
 
-// Check if the user is an admin
+// Function to check if the user is an admin
 export const checkIfAdmin = async (): Promise<boolean> => {
-  // Using async function to handle the check more cleanly
-  const user = await new Promise<any>((resolve) =>
-    onAuthStateChanged(auth, resolve)
-  );
-
-  if (user) {
-    try {
-      const userDocRef = doc(db, "users", user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        return userData.role === "admin"; // Return true if admin, otherwise false
+  return new Promise<boolean>((resolve) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            resolve(userData.admin === true); // Ensure it checks `admin` field
+          } else {
+            resolve(false);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          resolve(false);
+        }
+      } else {
+        resolve(false);
       }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  }
-
-  return false; // User is not logged in or not an admin
+    });
+  });
 };
