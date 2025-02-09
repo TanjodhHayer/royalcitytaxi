@@ -9,14 +9,14 @@ export default function Home() {
         </h1>
         <h2 className="serving ">Serving Greater Vancouver Area 24/7 for over 10+ years!</h2>
         <h2 className="">New Westminster, Queensborough, East Richmond, Annacis  Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR -  Vancouver Airport.</h2>
-        <h1>Call 604-526-6666</h1> 
+        <h1>Need a cab? Call 604-526-6666</h1> 
       </div>
         <div className="container section">
           {/* Hero Section */}
       <section className="relative flex flex-col items-center text-center px-6 py-20">
         {/* Meter Rates Section */}
         <div className="bg-gray-800 p-6 rounded-lg">
-          <h2 className="text-2xl font-bold text-yellow-400 mb-2">Our Meter Rates</h2>
+          <h2 className="text-2xl font-bold text-yellow-400 mb-2">Meter Rates</h2>
           <p className="text-lg"><strong>Flag:</strong> $3.75</p>
           <p className="text-lg"><strong>Per km:</strong> $2.18</p>
           <p className="text-lg"><strong>Waiting charge:</strong> $38.93 /hour</p>

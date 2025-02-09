@@ -33,12 +33,14 @@ export default function Navbar() {
               <a href="/contact">Contact</a>
             </div>
           )}
-
-          {isMobile && (
-            <button onClick={() => setIsOpen(!isOpen)} className="text-white">
+          <div className="navbar-links">
+            {isMobile && (
+            <button onClick={() => setIsOpen(!isOpen)} className="red">
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           )}
+          </div>
+          
         </div>
 
         {isMobile && isOpen && (

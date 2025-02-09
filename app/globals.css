@@ -87,10 +87,12 @@ button {
 
 .navbar-links {
   @apply flex gap-6 ml-auto; /* Pushes links to the rightmost side */
+  
 }
 
 .navbar-links-vertical {
   @apply flex flex-col gap-4 items-center;
+  @apply  text-black
 }
 
 .navbar-links a {
@@ -114,4 +116,8 @@ button {
 .serving{
   @apply text-[var(--secondary-color)]
   font-semibold
+}
+
+.red{
+  @apply bg-[var(--secondary-color)]
 }
