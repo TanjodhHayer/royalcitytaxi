@@ -53,8 +53,8 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-container">
-          <Image src="/assets/logo.png" alt="Logo" width={250} height={250} />
+        <div className="navbar-container flex items-center justify-between px-4 py-2">
+          <Image src="/assets/logo.png" alt="Logo" width={150} height={150} className="h-auto w-auto"/>
 
           {!isMobile && (
             <div className="navbar-links">
@@ -82,34 +82,40 @@ export default function Navbar() {
             </div>
           )}
 
-          {isMobile && (
-            <button onClick={() => setIsOpen(!isOpen)} className="red">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          )}
+{isMobile && (
+  <button
+    onClick={() => setIsOpen(!isOpen)}
+    className="ml-auto mr-4 p-2 rounded-md bg-red-500 hover:bg-red-600 text-white transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+  >
+    {isOpen ? <X size={28} /> : <Menu size={28} />}
+  </button>
+)}
+
+
+
         </div>
 
         {isMobile && isOpen && (
           <div className="navbar-links-vertical">
             <a href="/">Home</a>
             <a href="/services">Services</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); setIsBookingOpen(true); }} className="text-white hover:text-gray-300 transition">Book a Ride</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); setIsBookingOpen(true); }} >Book a Ride</a>
             <a href="/contact">Contact</a>
 
             {/* ✅ Show admin pages if user is an admin */}
             {isAdmin && (
               <>
-                <a href="/ViewBookings" className="text-white hover:text-gray-300 transition">View Bookings</a>
-                <a href="/ViewMessages" className="text-white hover:text-gray-300 transition">View Contact Messages</a>
+                <a href="/ViewBookings" >View Bookings</a>
+                <a href="/ViewMessages" >View Contact Messages</a>
               </>
             )}
 
             {/* ✅ Show "Login" or "Sign Out" dynamically */}
             {!loading && (
               user ? (
-                <a href="#" onClick={handleSignOut} className="text-white hover:text-gray-300 transition">Sign Out</a>
+                <a href="#" onClick={handleSignOut} >Sign Out</a>
               ) : (
-                <a href="/login" className="text-white hover:text-gray-300 transition">Login</a>
+                <a href="/login" >Login</a>
               )
             )}
           </div>

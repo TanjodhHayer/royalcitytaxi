@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       
-      <body className="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+      <body className="text-gray-900 flex flex-col min-h-screen">
         {/* ✅ Corrected AuthProvider */}
         <AuthProvider>  
           <Navbar />

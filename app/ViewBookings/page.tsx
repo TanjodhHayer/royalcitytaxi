@@ -1,72 +1,141 @@
 "use client";
 import { useEffect, useState } from "react";
-import { checkIfAdmin } from "@/lib/firebase"; // Path to your Firebase helper function
+import { db } from "@/lib/firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { db } from "@/lib/firebase"; // Firebase initialization
-import { collection, getDocs } from "firebase/firestore";
 
-// Type for Booking data
+// Booking Type Interface
 interface Booking {
   id: string;
   name: string;
-  pickup: string;
-  destination: string;
+  phone: number;
+  pickup: {
+    address: string;
+    lat: number;
+    lng: number;
+  };
+  destination: {
+    address: string;
+    lat: number;
+    lng: number;
+  };
   date: string;
 }
 
 export default function ViewBookings() {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   // Fetch bookings from Firestore
   useEffect(() => {
     const fetchBookings = async () => {
-      const bookingRef = collection(db, "bookings"); // Reference to 'bookings' collection
-      const snapshot = await getDocs(bookingRef);
-      const bookingsList = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setBookings(bookingsList as Booking[]);
+      try {
+        const bookingRef = collection(db, "bookings");
+        const snapshot = await getDocs(bookingRef);
+
+        if (snapshot.empty) {
+          setBookings([]);
+        } else {
+          const bookingsList = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })) as Booking[];
+
+          setBookings(bookingsList);
+        }
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+        setError("Failed to fetch bookings. Please try again.");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    if (isAdmin) {
-      fetchBookings();
-    }
-  }, [isAdmin]);
+    fetchBookings();
+  }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // Function to delete a booking
+  const deleteBooking = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "bookings", id));
+      setBookings((prev) => prev.filter((booking) => booking.id !== id)); // Remove from state
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+      setError("Failed to delete booking. Please try again.");
+    }
+  };
+
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-red-500 text-center mb-6">All Bookings</h1>
-      {bookings.length === 0 ? (
-        <div>No bookings found.</div>
+    <div className="p-5 md-screen bg-gray-100">
+      <h1 className="text-xl mb-2">All Bookings</h1>
+
+      {/* Display loading or error messages */}
+      {loading ? (
+        <p className="text-center text-gray-500">Loading bookings...</p>
+      ) : error ? (
+        <p className="text-center text-red-500">{error}</p>
+      ) : bookings.length === 0 ? (
+        <p className="text-center text-gray-500">No bookings found.</p>
       ) : (
-        <table className="min-w-full table-auto border-collapse">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2">Pickup Location</th>
-              <th className="border px-4 py-2">Destination</th>
-              <th className="border px-4 py-2">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.map((booking) => (
-              <tr key={booking.id}>
-                <td className="border px-4 py-2">{booking.name}</td>
-                <td className="border px-4 py-2">{booking.pickup}</td>
-                <td className="border px-4 py-2">{booking.destination}</td>
-                <td className="border px-4 py-2">{booking.date}</td>
+        <div className="overflow-auto rounded-lg shadow hidden md:block">
+          <table className="w-full">
+            <thead className="border-b-2 border-gray-200">
+              <tr>
+                <th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">No.</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Name</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Phone</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Pickup</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Destination</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Date</th>
+                <th className="p-3 text-sm font-semibold tracking-wide text-left">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {bookings.map((booking, index) => (
+                <tr key={booking.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{index + 1}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">{booking.name}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{booking.phone}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{booking.pickup.address}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{booking.destination.address}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{booking.date}</td>
+                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                    <button
+                      onClick={() => deleteBooking(booking.id)}
+                      className="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
+
+      {/* Mobile View */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+        {bookings.map((booking, index) => (
+          <div key={booking.id} className="bg-white space-y-3 p-4 rounded-lg shadow">
+            <div className="flex items-center justify-between text-sm">
+              <div className="font-bold text-gray-800">#{index + 1}</div>
+              <div className="text-gray-500">{booking.date}</div>
+            </div>
+            <div className="text-sm text-gray-700 font-bold">{booking.name}</div>
+            <div className="text-sm text-gray-700">{booking.pickup.address} → {booking.destination.address}</div>
+            <div className="text-sm text-gray-700">Phone: {booking.phone}</div>
+            <button
+              onClick={() => deleteBooking(booking.id)}
+              className="w-full text-sm bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

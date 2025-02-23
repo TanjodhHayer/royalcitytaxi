@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* Root Variables */
 :root {
   --primary-color: #000000;
