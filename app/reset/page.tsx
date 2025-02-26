@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { sendPasswordResetEmail, auth } from "@/lib/firebase"; // Import from your firebase module
+import { sendPasswordResetEmail, auth } from "@/lib/firebaseClient"; // Import from your firebase module
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");

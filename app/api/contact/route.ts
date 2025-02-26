@@ -1,5 +1,5 @@
 // app/api/contact/route.ts
-import { db } from "@/lib/firebase";
+import { db } from "@/lib/firebaseClient";
 import { collection, addDoc } from "firebase/firestore";
 
 import { NextResponse } from "next/server";

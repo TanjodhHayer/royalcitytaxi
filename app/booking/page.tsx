@@ -29,14 +29,17 @@ export default function BookingPage() {
     e.preventDefault();
     setLoading(true);
     const bookingData = { name, phone, pickup, destination, date };
+  
     try {
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
       });
+  
       if (response.ok) {
         alert(`Booking confirmed for ${name}!`);
+        // Clear fields after successful booking
         setName("");
         setPhone("");
         setPickup({ address: "", lat: 0, lng: 0 });
@@ -49,6 +52,7 @@ export default function BookingPage() {
       setLoading(false);
     }
   };
+  
 
   if (authLoading) {
     return <div className="text-center text-white text-xl">Loading...</div>;

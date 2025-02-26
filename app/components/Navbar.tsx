@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
-import { checkIfAdmin } from "@/lib/firebase";
+import { checkIfAdmin } from "@/lib/firebaseClient";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,19 +73,21 @@ export default function Navbar() {
         }`}
       >
         <div className="navbar-container flex items-center justify-between px-4 py-3">
-          <Image
-            src="/assets/logo.png"
-            alt="Logo"
-            width={150}
-            height={150}
-            className="h-auto w-auto"
-          />
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/assets/logo.png"
+              alt="Logo"
+              width={150}
+              height={150}
+              className="h-auto w-auto cursor-pointer"
+            />
+          </Link>
 
           {!isMobile && (
             <div className="flex space-x-6">
               {["Home", "Services", "Book a Ride", "Contact"].map((text, index) => (
-                <Link 
-                  key={index} 
+                <Link
+                  key={index}
                   href={
                     text.toLowerCase() === "home" ? "/" :
                     text === "Book a Ride" ? "/booking" :
@@ -134,8 +136,8 @@ export default function Navbar() {
         {isMobile && isOpen && (
           <div className="flex flex-col items-center space-y-4 bg-gray-900">
             {["Home", "Services", "Book a Ride", "Contact"].map((text, index) => (
-              <Link 
-                key={index} 
+              <Link
+                key={index}
                 href={
                   text.toLowerCase() === "home" ? "/" :
                   text === "Book a Ride" ? "/booking" :

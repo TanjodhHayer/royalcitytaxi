@@ -61,8 +61,12 @@ const ServicePage = () => {
               Whether you need a quick ride across town or a leisurely trip around the city, we offer fast and safe transportation to get you where you need to go. Our drivers know the city inside and out, so you can relax and enjoy the ride.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-              From city tours to quick errands, our service ensures you&#39;re always on time and traveling in comfort. We also offer options for larger groups, with spacious vehicles to accommodate everyone.
+              From city tours to quick deliveries, our service ensures you&#39;re always on time and traveling in comfort. We also offer options for larger groups, with spacious vehicles to accommodate everyone.
             </p>
+            <p className="text-lg text-gray-300 mb-4">
+            We offer wheelchair accessible rides, deliveries, valet services, and jump start assistance always on time, whenever you need us.
+            </p>
+            
             <p className="text-lg">
               <a
                 href="tel:+16045266666"

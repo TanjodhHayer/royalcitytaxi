@@ -6,6 +6,8 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);  // No need for 'mounted' state anymore
 
   const images = [
+    "/assets/royal-city-taxi.jpg",
+    "/assets/Car_40.png",
     "/assets/taxivan1.jpg",
     "/assets/taxivan2.jpg",
     "/assets/taxivan3.jpg"
@@ -51,7 +53,7 @@ export default function Home() {
           New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR - Vancouver Airport.
         </p>
         <h1 className="text-xl mt-4 text-[#E57373] dark:text-[#F44336] font-roboto">
-          Need a cab? Call 604-526-6666
+          Need a cab? Call 604-526-6666/604-521-6666 or Email dispatch@royalcitytaxi.com
         </h1>
       </div>
 
@@ -94,9 +96,17 @@ export default function Home() {
 
           <div className="space-y-4">
             <h3 className="text-3xl font-semibold">Reliable, Fast, and Professional Service</h3>
-            <p className="text-lg">With over 100 years of experience, Royal City Taxi is proud to provide fast and safe rides in the New Westminster area.</p>
-            <p className="text-lg">24/7 service, including airport transfers, business trips, and special events.</p>
+            <p className="text-lg">
+              With over 100 years of experience, Royal City Taxi proudly provides fast and safe rides across New Westminster.
+            </p>
+            <p className="text-lg">
+              Available 24/7 for airport transfers, business trips, and special events.
+            </p>
+            <p className="text-lg text-gray-300 mb-4">
+              We offer wheelchair-accessible rides, package deliveries, valet services, and jump-start assistance always on time, whenever you need us.
+            </p>
           </div>
+
         </div>
       </section>
 
