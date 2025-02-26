@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 /* Root Variables */
 :root {
@@ -10,115 +11,13 @@
   --secondary-color: #ff0000;
   --text-color: #FFFFFF;
   --background-color: #141414;
-  --white:#FFFFFF;
+  --white: #FFFFFF;
 }
 
 body {
   @apply bg-[var(--background-color)] text-[var(--text-color)] font-sans;
 }
 
-/* Utility Styles */
-.container {
-  @apply max-w-6xl mx-auto px-6; /* Increase width */
-}
-
-.section {
-  @apply py-16 flex flex-col md:grid md:grid-cols-2 gap-8 text-center;
-}
-
-h1 {
-  @apply text-4xl font-bold text-[var(--secondary-color)] mb-6;
-}
-
-h2 {
-  @apply text-2xl font-semibold mb-4;
-}
-
-p {
-  @apply text-lg text-gray-300 leading-relaxed;
-}
-
-/* Centering Utility - Apply this to any page wrapper */
-.center-page {
-  @apply flex flex-col items-center justify-center min-h-screen w-full;
-}
-
-/* Contact Section */
-.contact-container {
-  @apply flex flex-col md:flex-row bg-gray-900 text-white rounded-lg shadow-lg p-8 gap-8 items-center max-w-4xl mx-auto;
-}
-
-.contact-info {
-  @apply flex-1 space-y-4 text-center; /* Changed from text-left */
-}
-
-.contact-info p {
-  @apply flex items-center gap-2 text-lg;
-}
-
-.contact-form {
-  @apply flex-1 flex flex-col gap-4 bg-gray-800 p-6 rounded-lg shadow-lg;
-}
-
-input,
-textarea {
-  @apply w-full max-w-sm p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[var(--secondary-color)];
-}
-
-button {
-  @apply text-white px-6 py-3 font-bold rounded-lg shadow-md transition-all;
-}
-
-.red-button{
-  @apply bg-[var(--secondary-color)]  hover:bg-red-700;
-}
-
-/* Navbar */
-.navbar {
-  @apply bg-[var(--white)] text-white py-4 shadow-md w-full;
-}
-
-.navbar-container {
-  @apply flex items-center max-w-7xl mx-auto px-4;
-}
-
-.navbar-logo {
-  @apply text-xl font-bold;
-}
-
-.navbar-links {
-  @apply flex gap-6 ml-auto; /* Pushes links to the rightmost side */
-  
-}
-
-.navbar-links-vertical {
-  @apply flex flex-col gap-4 items-center;
-  @apply  text-black
-}
-
-.navbar-links a {
-  @apply  text-black text-lg font-medium transition-all;
-}
-
-.navbar-links a:hover {
-  @apply text-[var(--secondary-color)];
-}
-
-.navbar-links-vertical a:hover {
-  @apply text-[var(--secondary-color)];
-}
-
-
-.welcome{
-  flex: auto;
-  text-align: center;
-}
-
-.serving{
-  @apply text-[var(--secondary-color)]
-  font-semibold
-}
-
-.red{
-  @apply bg-[var(--secondary-color)]
+html, body {
+  overflow-x: hidden;
 }

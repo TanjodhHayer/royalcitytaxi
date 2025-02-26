@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* ✅ Corrected AuthProvider */}
         <AuthProvider>  
           <Navbar />
-          <main className="flex-1 flex flex-col items-center justify-center w-full">
+          <main>
             {children}
           </main>
         </AuthProvider>

@@ -47,34 +47,43 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="center-page">
-      <h1 className="text-4xl font-bold text-center">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          required
-          className="p-3 border border-gray-300 rounded"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          required
-          className="p-3 border border-gray-300 rounded"
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="red-button bg-blue-500 text-white p-3 rounded disabled:opacity-50"
-        >
-          {loading ? "Signing up..." : "Sign Up"}
-        </button>
-      </form>
+    <div className="flex items-center justify-center bg-gray-900 min-h-screen">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full sm:w-96">
+        <h1 className="text-2xl font-semibold text-center text-white mb-6">Sign Up</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            required
+            className="p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-700 text-white"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+            className="p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-700 text-white"
+          />
+          {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-red-500 text-white py-3 rounded-md disabled:opacity-50"
+          >
+            {loading ? "Signing up..." : "Sign Up"}
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push("/login")}
+            className="w-full mt-4 bg-gray-600 text-white py-3 rounded-md hover:bg-gray-500"
+          >
+            Already have an account? Log In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

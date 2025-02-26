@@ -19,15 +19,13 @@ export default function LoginPage() {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // On successful login, check if the user is an admin
       const user = userCredential.user;
       const token = await user.getIdTokenResult();
 
-      // Redirect the user based on role (admin or user)
       if (token.claims.role === "admin") {
-        router.push("/admin/view-bookings"); // Admin can access bookings
+        router.push("/admin/view-bookings");
       } else {
-        router.push("/"); // Regular user redirection to homepage
+        router.push("/");
       }
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
@@ -38,42 +36,57 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="center-page">
-        <h1 className="text-4xl font-bold text-center">Login</h1>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          required
-          className="p-3 border border-gray-300 rounded"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          required
-          className="p-3 border border-gray-300 rounded"
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="red-button bg-blue-500 text-white p-3 rounded disabled:opacity-50 w-full sm:w-auto"
-          >
-            {loading ? "Logging in..." : "Log In"}
-          </button>
-          <button
-            onClick={() => router.push("/signup")} // Redirect to Sign Up page
-            className="red-button bg-green-500 text-white p-3 rounded w-full sm:w-auto"
-          >
-            Sign Up
-          </button>
-        </div>
-      </form>
+    <div className="flex items-center justify-center bg-gray-900 min-h-screen">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full sm:w-96">
+        <h1 className="text-2xl font-semibold text-center text-white mb-6">Login</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm text-gray-300 mb-2">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-700 text-white"
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm text-gray-300 mb-2">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+              className="w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-700 text-white"
+            />
+          </div>
+
+          {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
+
+          <div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-red-500 text-white py-3 rounded-md disabled:opacity-50"
+            >
+              {loading ? "Logging in..." : "Log In"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push("/signup")}
+              className="w-full mt-4 bg-gray-600 text-white py-3 rounded-md hover:bg-gray-500"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
