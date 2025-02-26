@@ -26,7 +26,6 @@ export default function ViewBookings() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   // Fetch bookings from Firestore
   useEffect(() => {

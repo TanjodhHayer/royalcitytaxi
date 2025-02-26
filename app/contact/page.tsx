@@ -35,6 +35,7 @@ export default function ContactPage() {
         setError(result.error || "Failed to send the message.");
       }
     } catch (error) {
+      console.log(error);
       setError("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);

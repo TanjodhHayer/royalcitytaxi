@@ -3,13 +3,6 @@ import { useState } from "react";
 import Image from "next/image";
 
 const ServicePage = () => {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-
-  const handleBookingClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsBookingOpen(true);
-  };
-
   return (
     <div className="bg-gray-900 text-white min-h-screen pt-48">
       {/* Title and Introduction */}
@@ -38,7 +31,7 @@ const ServicePage = () => {
                 href="tel:+16045266666"
                 className="text-red-500 hover:text-red-400 font-bold"
               >
-                Email us for more information.
+                Email us for more information&#39;s.
               </a>
             </p>
           </div>
@@ -57,7 +50,7 @@ const ServicePage = () => {
                 href="tel:+16045266666"
                 className="text-red-500 hover:text-red-400 font-bold"
               >
-                Contact us for airport transfer bookings.
+                Contact us for airport transfer bookings&#39;s.
               </a>
             </p>
           </div>
@@ -76,7 +69,7 @@ const ServicePage = () => {
                 href="tel:+16045266666"
                 className="text-red-500 hover:text-red-400 font-bold"
               >
-                Book your city ride now.
+                Book your city ride now&#39;s.
               </a>
             </p>
           </div>
@@ -95,7 +88,7 @@ const ServicePage = () => {
                 href="tel:+16045266666"
                 className="text-red-500 hover:text-red-400 font-bold"
               >
-                Inquire about our corporate services.
+                Inquire about our corporate services&#39;s.
               </a>
             </p>
           </div>  

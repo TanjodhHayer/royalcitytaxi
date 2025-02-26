@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; 
 import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import { FirebaseError } from "firebase/app";  // Import FirebaseError from 'firebase/app'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -34,13 +35,17 @@ export default function SignUpPage() {
       });
 
       router.push("/login");  // Redirect to Login page after successful sign-up
-    } catch (error: any) {
-      if (error.code === "auth/email-already-in-use") {
-        setError("This email is already in use. Please try a different one.");
-      } else if (error.code === "auth/weak-password") {
-        setError("Password should be at least 6 characters.");
+    } catch (error) {
+      if (error instanceof FirebaseError) {  // Check if the error is an instance of FirebaseError
+        if (error.code === "auth/email-already-in-use") {
+          setError("This email is already in use. Please try a different one.");
+        } else if (error.code === "auth/weak-password") {
+          setError("Password should be at least 6 characters.");
+        } else {
+          setError("Failed to sign up. Please try again.");
+        }
       } else {
-        setError("Failed to sign up. Please try again.");
+        setError("An unexpected error occurred.");
       }
       setLoading(false);
     }
