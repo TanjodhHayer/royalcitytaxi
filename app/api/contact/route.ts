@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   try {
     // Save to Firestore
-    const docRef = await addDoc(messagesRef, {
+    await addDoc(messagesRef, {
       name,
       email,
       phone,
@@ -21,6 +21,8 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({ message: "Message sent!" });
   } catch (error) {
+    console.error(error);  // Log the error
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
   }
+  
 }

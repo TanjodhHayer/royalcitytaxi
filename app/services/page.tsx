@@ -1,17 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 const ServicePage = () => {
-
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);  // Add a mounted state to delay rendering
 
   const handleBookingClick = (e: React.MouseEvent) => {
-    e.preventDefault();  // Prevents the default link behavior
-    setIsBookingOpen(true);  // Opens the booking form (modal)
+    e.preventDefault();
+    setIsBookingOpen(true);
   };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen pt-48">
       {/* Title and Introduction */}

@@ -4,15 +4,15 @@ import { useState } from "react";
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [success, setSuccess] = useState("");
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -42,17 +42,17 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-900 text-white  pt-32">
+    <div className="flex flex-col items-center justify-center bg-gray-900 text-white pt-32">
       <h1 className="text-4xl font-bold text-red-500 mb-6">Contact Us</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         {/* Contact Info */}
         <div className="space-y-4 text-center mb-6">
-        <p className="text-lg text-gray-300 mb-4">
-          Have a question? Need more information? 
-        </p>
-        <p className="text-lg text-gray-300 mb-4">
-          Reach out to us via email or phone, and we’ll get back to you promptly.
-        </p>
+          <p className="text-lg text-gray-300 mb-4">
+            Have a question? Need more information?
+          </p>
+          <p className="text-lg text-gray-300 mb-4">
+            Reach out to us via email or phone, and we’ll get back to you promptly.
+          </p>
           <p className="text-lg font-semibold">📍 New Westminster, BC</p>
           <p className="text-lg font-semibold">
             📞 Call Us:{" "}
@@ -143,7 +143,6 @@ export default function ContactPage() {
           </button>
         </form>
       </div>
-      
     </div>
   );
 }

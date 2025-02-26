@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import LocationInput from "../components/LocationInputs";
 import { useRouter } from "next/navigation";
+import { User } from "firebase/auth"; 
 
 export default function BookingPage() {
   const [name, setName] = useState("");
@@ -11,10 +12,9 @@ export default function BookingPage() {
   const [destination, setDestination] = useState({ address: "", lat: 0, lng: 0 });
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);  // Add a mounted state to delay rendering
 
   useEffect(() => {
     const auth = getAuth();
@@ -45,8 +45,6 @@ export default function BookingPage() {
       } else {
         alert("Booking failed!");
       }
-    } catch (error) {
-      alert("Something went wrong.");
     } finally {
       setLoading(false);
     }

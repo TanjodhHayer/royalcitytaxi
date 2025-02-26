@@ -7,7 +7,6 @@ import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import { checkIfAdmin } from "@/lib/firebase";
-import debounce from "lodash.debounce";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

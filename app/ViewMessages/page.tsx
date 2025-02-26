@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 // Type for Contact Message data
 interface ContactMessage {
@@ -10,7 +11,18 @@ interface ContactMessage {
   email: string;
   phone: string;
   message: string;
-  timestamp: any;
+  timestamp: Timestamp;
+}
+
+
+// Type for Contact Message data
+interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  timestamp: Timestamp;
 }
 
 export default function ViewContactMessages() {

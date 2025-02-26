@@ -20,10 +20,13 @@ const ForgotPassword = () => {
       await sendPasswordResetEmail(auth, email);
       setMessage("Password reset link has been sent to your email.");
     } catch (error) {
+      console.error("Error details:", error);  // Log the error details
+    
       setMessage("Error: Unable to send password reset email.");
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (

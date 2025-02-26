@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface LocationInputProps {
   label: string;
@@ -17,12 +17,16 @@ export default function LocationInput({ label, onSelect }: LocationInputProps) {
         autocompleteRef.current.addListener("place_changed", () => {
           const place = autocompleteRef.current?.getPlace();
           if (place && place.geometry) {
-            onSelect(place.formatted_address || "", place.geometry.location?.lat() || 0, place.geometry.location?.lng() || 0);
+            onSelect(
+              place.formatted_address || "",
+              place.geometry.location?.lat() || 0,
+              place.geometry.location?.lng() || 0
+            );
           }
         });
       }
     }
-  }, []);
+  }, [onSelect]); // Add `onSelect` to the dependency array
 
   return (
     <div>

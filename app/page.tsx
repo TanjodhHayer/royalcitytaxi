@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);  // Add a mounted state to delay rendering
+  const [currentIndex, setCurrentIndex] = useState(0);  // No need for 'mounted' state anymore
 
   const images = [
     "/assets/taxivan1.jpg",
@@ -76,23 +74,23 @@ export default function Home() {
       {/* Service Highlights */}
       <section className="bg-gray-900 text-white">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-        <section className="relative bg-gray-900 text-white">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="relative">
-              <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-lg">
-                <Image
-                  src={images[currentIndex]}
-                  alt="Royal City Taxi"
-                  fill
-                  style={{ objectFit: 'contain' }}  // Updated for objectFit
-                  className="shadow-xl"
-                />
+          <section className="relative bg-gray-900 text-white">
+            <div className="max-w-5xl mx-auto text-center">
+              <div className="relative">
+                <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-lg">
+                  <Image
+                    src={images[currentIndex]}
+                    alt="Royal City Taxi"
+                    fill
+                    style={{ objectFit: 'contain' }}  // Updated for objectFit
+                    className="shadow-xl"
+                  />
+                </div>
+                <button onClick={handlePrev} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-70 hover:opacity-100">&#8592;</button>
+                <button onClick={handleNext} className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-70 hover:opacity-100">&#8594;</button>
               </div>
-              <button onClick={handlePrev} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-70 hover:opacity-100">&#8592;</button>
-              <button onClick={handleNext} className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black p-2 rounded-full opacity-70 hover:opacity-100">&#8594;</button>
             </div>
-          </div>
-        </section>
+          </section>
 
           <div className="space-y-4">
             <h3 className="text-3xl font-semibold">Reliable, Fast, and Professional Service</h3>
@@ -101,7 +99,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* App Store and Google Play Links */}
       <section className="bg-gray-800 text-center text-white pb-16">

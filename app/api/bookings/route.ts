@@ -20,6 +20,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Booking confirmed", id: docRef.id }, { status: 201 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to save booking" }, { status: 500 });
   }
 }
@@ -32,6 +33,7 @@ export async function GET() {
 
     return NextResponse.json(bookings, { status: 200 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 });
   }
 }
