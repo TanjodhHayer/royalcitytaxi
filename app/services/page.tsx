@@ -8,7 +8,7 @@ const ServicePage = () => {
       <section className="text-center">
         <h1 className="text-5xl font-extrabold text-yellow-400 mb-6">Our Services</h1>
         <p className="text-xl text-gray-300 max-w-4xl mx-auto">
-          At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs. From corporate accounts to airport transfers, we’ve got you covered.
+          At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs. From corporate accounts to airport transfers, we&#39;ve got you covered.
         </p>
       </section>
 
@@ -20,7 +20,7 @@ const ServicePage = () => {
           <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4">Corporate & Event Accounts</h2>
             <p className="text-lg text-gray-300 mb-4">
-              We provide tailored solutions for corporate accounts and special events. Whether it’s for employees or customers, we ensure comfortable, reliable, and safe transportation.
+              We provide tailored solutions for corporate accounts and special events. Whether it&#39;s for employees or customers, we ensure comfortable, reliable, and safe transportation.
             </p>
             <p className="text-lg text-gray-300 mb-4">
               Book rides for your team, clients, or guests with ease, ensuring timely arrivals and departures every time. We specialize in managing large bookings for conferences, business meetings, and corporate events.
@@ -42,7 +42,7 @@ const ServicePage = () => {
               Get to and from the airport quickly and stress-free. We offer both arrivals and departures services to ensure your travel is smooth. Our drivers track your flight to adjust for any delays or early arrivals.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-              Enjoy prompt pick-up and drop-off, with professional drivers who understand the importance of timely travel. Whether it's a domestic or international flight, we've got you covered!
+              Enjoy prompt pick-up and drop-off, with professional drivers who understand the importance of timely travel. Whether it&#39;s a domestic or international flight, we&#39;ve got you covered!
             </p>
             <p className="text-lg">
               <a
@@ -61,7 +61,7 @@ const ServicePage = () => {
               Whether you need a quick ride across town or a leisurely trip around the city, we offer fast and safe transportation to get you where you need to go. Our drivers know the city inside and out, so you can relax and enjoy the ride.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-              From city tours to quick errands, our service ensures you're always on time and traveling in comfort. We also offer options for larger groups, with spacious vehicles to accommodate everyone.
+              From city tours to quick errands, our service ensures you&#39;re always on time and traveling in comfort. We also offer options for larger groups, with spacious vehicles to accommodate everyone.
             </p>
             <p className="text-lg">
               <a
@@ -80,7 +80,7 @@ const ServicePage = () => {
               We offer corporate packages that cater to businesses needing reliable transportation for employees and clients.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-              Whether it's for meetings, conferences, or daily commuting, our corporate services ensure a seamless and comfortable experience.
+              Whether it&#39;s for meetings, conferences, or daily commuting, our corporate services ensure a seamless and comfortable experience.
             </p>
             <p className="text-lg">
               <a
