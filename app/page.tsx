@@ -103,7 +103,7 @@ export default function Home() {
               Available 24/7 for airport transfers, business trips, and special events.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-              We offer wheelchair-accessible rides, package deliveries, valet services, and jump-start assistance always on time, whenever you need us.
+              We offer wheelchair-accessible rides, deliver cargo and other deliveries, valet services, and jump-start assistance always on time, whenever you need us.
             </p>
           </div>
 

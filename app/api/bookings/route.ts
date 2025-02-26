@@ -24,16 +24,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to save booking" }, { status: 500 });
   }
 }
-
-// Handle GET request (Fetch Bookings)
-export async function GET() {
-  try {
-    const snapshot = await getDocs(bookingsRef);
-    const bookings = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-    return NextResponse.json(bookings, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 });
-  }
-}
