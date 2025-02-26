@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 
 // Booking Type Interface
 interface Booking {
