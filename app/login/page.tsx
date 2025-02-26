@@ -84,6 +84,16 @@ export default function LoginPage() {
             >
               Sign Up
             </button>
+
+            <div className="text-center mt-4">
+              <button
+                type="button"
+                onClick={() => router.push("/reset")}
+                className="text-sm text-blue-400 hover:text-blue-300"
+              >
+                Forgot Password?
+              </button>
+            </div>
           </div>
         </form>
       </div>

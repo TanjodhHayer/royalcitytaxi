@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
@@ -13,10 +13,13 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, // Optional
 };
 
-// Ensure Firebase is initialized only once
+// Initialize Firebase only if not already initialized
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// Initialize Firestore and Authentication
 export const db = getFirestore(app);
 export const auth = getAuth(app); // Export auth for reuse
+
 console.log("Firebase initialized:", getApps().length > 0);
 
 // Function to check if the user is an admin
@@ -39,3 +42,6 @@ export const checkIfAdmin = async (): Promise<boolean> => {
   }
   return false; // Return false if no user is logged in
 };
+
+// Export the sendPasswordResetEmail for use in other files
+export { sendPasswordResetEmail };
