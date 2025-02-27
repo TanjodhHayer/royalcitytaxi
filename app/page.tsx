@@ -107,7 +107,7 @@ export default function Home() {
               With over 100 years of experience, Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
             <p className="text-lg">
-              Available 24/7 for airport transfers, business trips, and special events cargo  deliveries, valet services, and jump-start assistance.
+              Available 24/7 for airport transfers, business trips, and special events, cargo deliveries, valet services, and jump-start assistance.
             </p>
             <p className="text-lg ">
               Always on time, whenever you need us!
