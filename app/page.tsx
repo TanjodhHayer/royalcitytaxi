@@ -104,7 +104,7 @@ export default function Home() {
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold">Reliable, Fast, and Professional Service</h3>
             <p className="text-lg">
-              With over 100 years of experience, Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
+              Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
             <p className="text-lg">
               Available 24/7 for airport transfers, business trips, and special events, cargo deliveries, valet services, and jump-start assistance.
