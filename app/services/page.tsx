@@ -7,7 +7,7 @@ const ServicePage = () => {
       {/* Title and Introduction */}
       <section className="text-center">
         <h1 className="text-5xl font-extrabold text-yellow-400 mb-6">Our Services</h1>
-        <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+        <p className="text-xl text-gray-300 max-w-4xl mx-auto px-2">
           At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs.
         </p>
       </section>
@@ -100,8 +100,8 @@ const ServicePage = () => {
 
       {/* Image Section */}
       <section className="bg-gray-800 text-center text-white">
-        <h2 className="text-3xl font-semibold text-yellow-400 mb-4">Download Our App for Easy Booking</h2>
-        <p className="text-lg text-gray-300 mb-8">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today! Track your ride, pay easily, and more.</p>
+        <h2 className="text-3xl font-semibold text-yellow-400 mb-4 py-4">Download Our App for Easy Booking</h2>
+        <p className="text-lg text-gray-300 mb-8 px-2">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today!</p>
         {/* App Store and Google Play Links */}
         <div className="flex justify-center gap-4 pb-16">
           {/* App Store Image */}

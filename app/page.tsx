@@ -102,14 +102,14 @@ export default function Home() {
           </section>
 
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">Reliable, Fast, and Professional Service</h3>
-            <p className="text-lg">
+            <h3 className="text-2xl font-semibold px-4">Reliable, Fast, and Professional Service</h3>
+            <p className="text-lg px-4">
               With over 100 years of experience, Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
-            <p className="text-lg">
+            <p className="text-lg px-4">
               Available 24/7 for airport transfers, business trips, and special events, cargo deliveries, valet services, and jump-start assistance.
             </p>
-            <p className="text-lg ">
+            <p className="text-lg px-4">
               Always on time, whenever you need us!
             </p>
           </div>
@@ -119,14 +119,15 @@ export default function Home() {
 
       {/* App Store and Google Play Links */}
       <section className="bg-gray-800 text-center text-white pb-16">
-        <h2 className="text-3xl font-semibold text-yellow-400 mb-4">Download Our App for Easy Booking</h2>
-        <p className="text-lg text-gray-300 mb-8">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today!</p>
+        <h2 className="text-3xl font-semibold text-yellow-400 mb-4 py-4">Download Our App for Easy Booking</h2>
+        <p className="text-lg text-gray-300 mb-8 px-2">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today!</p>
         <div className="flex justify-center gap-4">
           {/* App Store Image */}
           <a
             href="https://apps.apple.com/ca/developer/royal-city-taxi-ltd/id1467020082"
             target="_blank"
             rel="noopener noreferrer"
+            
           >
             <Image
               src="/assets/appstore.png"
