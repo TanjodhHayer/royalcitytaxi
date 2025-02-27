@@ -53,9 +53,7 @@ export default function Home() {
         <h1 className="text-5xl font-extrabold text-[#E57373] dark:text-[#F44336] mb-2 font-roboto">
         Need a cab?
         </h1>
-        <h1 className="text-5xl font-extrabold text-white  mb-2 font-roboto">
-          Call 604-526-6666 or 604-521-6666
-        </h1>
+        <h1 className="text-5xl font-extrabold text-white  mb-2 font-roboto"> <a href="tel:+16045266666"> Call 604-526-6666 </a> </h1>
         <p className="text-lg mt-2 text-[#E0E0E0] font-roboto">
           Serving New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR - Vancouver Airport.
         </p>
