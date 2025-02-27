@@ -13,11 +13,11 @@ const ServicePage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-16">
+      <section className="py-16 px-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           
           {/* Corporate & Event Accounts */}
-          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105">
+          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4">Corporate & Event Accounts</h2>
             <p className="text-lg text-gray-300 mb-4">
               We provide tailored solutions for corporate accounts and special events. Whether it&#39;s for employees or customers, we ensure comfortable, reliable, and safe transportation.
@@ -36,7 +36,7 @@ const ServicePage = () => {
           </div>
 
           {/* Airport Transfers */}
-          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105">
+          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4">Airport Transfers</h2>
             <p className="text-lg text-gray-300 mb-4">
               Get to and from the airport quickly and stress-free. We offer both arrivals and departures services to ensure your travel is smooth. Our drivers track your flight to adjust for any delays or early arrivals.
@@ -55,7 +55,7 @@ const ServicePage = () => {
           </div>
 
           {/* City Rides */}
-          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105">
+          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4">City Rides</h2>
             <p className="text-lg text-gray-300 mb-4">
               Whether you need a quick ride across town or a leisurely trip around the city, we offer fast and safe transportation to get you where you need to go. Our drivers know the city inside and out, so you can relax and enjoy the ride.
@@ -78,7 +78,7 @@ const ServicePage = () => {
           </div>
 
           {/* Corporate Services */}
-          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105">
+          <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
             <h2 className="text-2xl font-bold text-yellow-400 mb-4">Corporate Services</h2>
             <p className="text-lg text-gray-300 mb-4">
               We offer corporate packages that cater to businesses needing reliable transportation for employees and clients.

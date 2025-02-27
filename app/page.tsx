@@ -102,8 +102,8 @@ export default function Home() {
           </section>
 
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">Reliable, Fast, and Professional Service</h3>
-            <p className="text-lg">
+            <h3 className="text-2xl font-semibold px-4">Reliable, Fast, and Professional Service</h3>
+            <p className="text-lg px-4">
               Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
             <p className="text-lg px-4">
