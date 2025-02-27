@@ -55,7 +55,7 @@ export default function Home() {
         </h1>
         <h1 className="text-5xl font-extrabold text-white  mb-2 font-roboto"> <a href="tel:+16045266666"> Call 604-526-6666 </a> </h1>
         <p className="text-lg mt-2 text-[#E0E0E0] font-roboto">
-          Serving New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR - Vancouver Airport.
+          Serving New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, North Surrey, and YVR - Vancouver Airport.
         </p>
       </div>
 
@@ -105,7 +105,7 @@ export default function Home() {
               Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
             <p className="text-lg px-4">
-              Available 24/7 for airport transfers, business trips, and special events, cargo deliveries, valet services, and jump-start assistance.
+              Pre-booking available 24/7 for airport transfers, business trips, special events, cargo deliveries, valet services, and jump-start assistance.
             </p>
             <p className="text-lg px-4">
               Always on time, whenever you need us!
