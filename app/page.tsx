@@ -10,7 +10,8 @@ export default function Home() {
     "/assets/Car_40.png",
     "/assets/taxivan1.jpg",
     "/assets/taxivan2.jpg",
-    "/assets/taxivan3.jpg"
+    "/assets/taxivan3.jpg",
+    "/assets/taxivan4.jpg"
   ];
 
   const handlePrev = () => {
@@ -34,47 +35,53 @@ export default function Home() {
       <div className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: "url('/assets/taxivan2.jpg')" }}>
         {/* Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-          <h1 className="text-red-600 text-4xl md:text-6xl font-bold mb-4">ROYAL CITY TAXI</h1>
-          <p className="text-2xl mt-4 font-semibold text-[#E57373] dark:text-[#F44336] mb-2 font-roboto">Serving New Westminster for over 100 years</p>
-          <a href="/booking" className="bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-yellow-600 transition">BOOK TAXI ONLINE</a>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 pb-42">
+        <Image
+              src="/assets/crown.png"
+              alt="Logo"
+              width={150}
+              height={150}
+              className="h-auto w-auto"
+            />
+          <p className="text-2xl mt-4 font-semibold text-[#E57373] dark:text-[#F44336] mb-4 font-roboto">Serving New Westminster since 1941</p>
+          <a href="/booking" className="bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-yellow-600 transition">BOOK A TAXI ONLINE</a>
         </div>
       </div>
       
       {/* Welcome Section */}
       <div className="text-center py-12 bg-gray-900 text-white">
         <h1 className="text-5xl font-extrabold text-[#E57373] dark:text-[#F44336] mb-2 font-roboto">
-          Welcome to Royal City Taxi
+        Need a cab?
         </h1>
-        <h2 className="text-2xl mt-4 font-semibold text-[#E57373] dark:text-[#F44336] mb-2 font-roboto">
-          Serving New Westminster Area 24/7 for over 100+ years!
-        </h2>
+        <h1 className="text-5xl font-extrabold text-white  mb-2 font-roboto">
+          Call 604-526-6666 or 604-521-6666
+        </h1>
         <p className="text-lg mt-2 text-[#E0E0E0] font-roboto">
-          New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR - Vancouver Airport.
+          Serving New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, Port Coquitlam, North Surrey, and YVR - Vancouver Airport.
         </p>
-        <h1 className="text-xl mt-4 text-[#E57373] dark:text-[#F44336] font-roboto">
-          Need a cab? Call 604-526-6666/604-521-6666 or Email dispatch@royalcitytaxi.com
-        </h1>
       </div>
 
       {/* Meter Rates Section */}
       <div className="container mx-auto bg-gray-900">
         <section className="bg-gray-800 shadow-lg rounded-lg p-8 text-center max-w-lg mx-auto">
-          <h2 className="text-2xl font-bold text-[#FFEB3B] mb-4 font-roboto">Meter Rates</h2>
+          <h2 className="text-2xl font-bold text-[#FFEB3B] mb-4 font-roboto">Meter Rates for Car & Van</h2>
           <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] mb-2 font-roboto">
             <strong>Flag:</strong> $3.75
           </p>
           <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] mb-2 font-roboto">
             <strong>Per km:</strong> $2.18
           </p>
-          <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] font-roboto">
+          <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] font-roboto mb-2">
             <strong>Waiting charge:</strong> $38.93 /hour
+          </p>
+          <p className="text-xl  text-[#F44336] dark:text-[#E57373] font-roboto ">
+            Rates are different for cargo, contact us for inquiries!
           </p>
         </section>
       </div>
       
       {/* Service Highlights */}
-      <section className="bg-gray-900 text-white">
+      <section className="bg-gray-900 text-white pt-6 pb-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <section className="relative bg-gray-900 text-white">
             <div className="max-w-5xl mx-auto text-center">
@@ -95,15 +102,15 @@ export default function Home() {
           </section>
 
           <div className="space-y-4">
-            <h3 className="text-3xl font-semibold">Reliable, Fast, and Professional Service</h3>
+            <h3 className="text-2xl font-semibold">Reliable, Fast, and Professional Service</h3>
             <p className="text-lg">
-              With over 100 years of experience, Royal City Taxi proudly provides fast and safe rides across New Westminster.
+              With over 100 years of experience, Royal City Taxi proudly provides rides across New Westminster in our fleet of sedans and vans along with wheelchair-accessible vans.
             </p>
             <p className="text-lg">
-              Available 24/7 for airport transfers, business trips, and special events.
+              Available 24/7 for airport transfers, business trips, and special events cargo  deliveries, valet services, and jump-start assistance.
             </p>
-            <p className="text-lg text-gray-300 mb-4">
-              We offer wheelchair-accessible rides, deliver cargo and other deliveries, valet services, and jump-start assistance always on time, whenever you need us.
+            <p className="text-lg ">
+              Always on time, whenever you need us!
             </p>
           </div>
 

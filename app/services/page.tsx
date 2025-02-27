@@ -8,7 +8,7 @@ const ServicePage = () => {
       <section className="text-center">
         <h1 className="text-5xl font-extrabold text-yellow-400 mb-6">Our Services</h1>
         <p className="text-xl text-gray-300 max-w-4xl mx-auto">
-          At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs. From corporate accounts to airport transfers, we&#39;ve got you covered.
+          At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs.
         </p>
       </section>
 
@@ -64,7 +64,7 @@ const ServicePage = () => {
               From city tours to quick deliveries, our service ensures you&#39;re always on time and traveling in comfort. We also offer options for larger groups, with spacious vehicles to accommodate everyone.
             </p>
             <p className="text-lg text-gray-300 mb-4">
-            We offer wheelchair accessible rides, deliveries, valet services, and jump start assistance always on time, whenever you need us.
+            We offer wheelchair accessible rides, cargo deliveries, valet services, and jump start assistance!
             </p>
             
             <p className="text-lg">

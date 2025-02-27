@@ -74,14 +74,25 @@ export default function Navbar() {
       >
         <div className="navbar-container flex items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/assets/logo.png"
+          <Image
+              src="/assets/crown.png"
               alt="Logo"
-              width={150}
+              width={50}
+              height={150}
+              className="h-auto w-auto cursor-pointer"
+            />
+            <h1 className="text-red-600 text-4xl md:text-5xl font-semibold mb-0" style={{ textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)" }}>ROYAL CITY TAXI</h1>
+
+            <Image
+              src="/assets/crown.png"
+              alt="Logo"
+              width={50}
               height={150}
               className="h-auto w-auto cursor-pointer"
             />
           </Link>
+
+          
 
           {!isMobile && (
             <div className="flex space-x-6">
