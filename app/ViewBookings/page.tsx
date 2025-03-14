@@ -120,7 +120,7 @@ export default function ViewBookings() {
 
       {/* Mobile View */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
-        {bookings.map((booking, index) => (
+        {bookings.map((booking) => (
           <div key={booking.id} className="bg-gray-800 text-white space-y-3 p-4 rounded-lg shadow ">
             <div className="flex items-center justify-between text-sm">
               <div className="text-sm text-gray-300 font-bold ">{booking.name}</div>
