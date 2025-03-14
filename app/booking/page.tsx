@@ -28,7 +28,16 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const bookingData = { name, phone, pickup, destination, date };
+  
+    const bookingData = {
+      name,
+      phone,
+      pickup,
+      destination,
+      pickupAddress: pickup.address || "", // Store a copy of the pickup address
+      destinationAddress: destination.address || "", // Store a copy of the destination address
+      date,
+    };
   
     try {
       const response = await fetch("/api/bookings", {
@@ -39,7 +48,6 @@ export default function BookingPage() {
   
       if (response.ok) {
         alert(`Booking confirmed for ${name}!`);
-        // Clear fields after successful booking
         setName("");
         setPhone("");
         setPickup({ address: "", lat: 0, lng: 0 });
@@ -52,6 +60,7 @@ export default function BookingPage() {
       setLoading(false);
     }
   };
+  
   
 
   if (authLoading) {
