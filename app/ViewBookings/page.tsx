@@ -19,6 +19,7 @@ interface Booking {
     lng: number;
   };
   date: string;
+  time: string;
 }
 
 export default function ViewBookings() {
@@ -80,15 +81,15 @@ export default function ViewBookings() {
         <div className="overflow-auto rounded-lg shadow bg-gray-800 md:block hidden">
           <table className="w-full text-white">
             <thead className="border-b-2 border-gray-700">
-              <tr>
-                <th className="w-20 p-4 text-sm font-semibold tracking-wide text-left">No.</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Name</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Phone</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Pickup</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Destination</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Date</th>
-                <th className="p-4 text-sm font-semibold tracking-wide text-left">Actions</th>
-              </tr>
+            <tr>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Name</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Phone</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup Date</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup Time</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Destination</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Actions</th>
+            </tr>
             </thead>
             <tbody className="divide-y divide-gray-600">
               {bookings.map((booking, index) => (
@@ -96,13 +97,13 @@ export default function ViewBookings() {
                   key={booking.id}
                   className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-600"}
                 >
-                  <td className="p-4 text-sm text-gray-300">{index + 1}</td>
-                  <td className="p-4 text-sm text-gray-300 font-bold">{booking.name}</td>
-                  <td className="p-4 text-sm text-gray-300">{booking.phone}</td>
-                  <td className="p-4 text-sm text-gray-300">{booking.pickup.address}</td>
-                  <td className="p-4 text-sm text-gray-300">{booking.destination.address}</td>
-                  <td className="p-4 text-sm text-gray-300">{booking.date}</td>
-                  <td className="p-4 text-sm text-gray-300">
+                  <td className="p-4 text-sm text-gray-300 font-bold text-center">{booking.name}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.phone}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.pickup.address}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.date}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.time}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.destination.address}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">
                     <button
                       onClick={() => deleteBooking(booking.id)}
                       className="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
@@ -120,14 +121,30 @@ export default function ViewBookings() {
       {/* Mobile View */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
         {bookings.map((booking, index) => (
-          <div key={booking.id} className="bg-gray-800 text-white space-y-3 p-4 rounded-lg shadow">
+          <div key={booking.id} className="bg-gray-800 text-white space-y-3 p-4 rounded-lg shadow ">
             <div className="flex items-center justify-between text-sm">
-              <div className="font-bold text-gray-300">#{index + 1}</div>
+              <div className="text-sm text-gray-300 font-bold ">{booking.name}</div>
+              <div> 
               <div className="text-gray-400">{booking.date}</div>
+              <div className="text-gray-400">{booking.time}</div>
+              </div>
             </div>
-            <div className="text-sm text-gray-300 font-bold">{booking.name}</div>
-            <div className="text-sm text-gray-300">{booking.pickup.address} → {booking.destination.address}</div>
-            <div className="text-sm text-gray-300">Phone: {booking.phone}</div>
+            <div className="space-y-3 text-center">
+              <div className="grid grid-cols-1 gap-2">
+                <div className="text-sm text-gray-300">
+                  <span className="font-semibold">Pickup:</span>
+                  <div className="ml-4">{booking.pickup.address}</div>
+                </div>
+                <div className="text-sm text-gray-300">
+                  <span className="font-semibold">Drop off:</span>
+                  <div className="ml-4">{booking.destination.address}</div>
+                </div>
+                <div className="text-sm text-gray-300">
+                  <span className="font-semibold">Phone:</span> {booking.phone}
+                </div>
+              </div>
+            </div>
+
             <button
               onClick={() => deleteBooking(booking.id)}
               className="w-full text-sm bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition"

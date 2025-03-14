@@ -11,6 +11,7 @@ export default function BookingPage() {
   const [pickup, setPickup] = useState({ address: "", lat: 0, lng: 0 });
   const [destination, setDestination] = useState({ address: "", lat: 0, lng: 0 });
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -25,10 +26,23 @@ export default function BookingPage() {
     return () => unsubscribe();
   }, []);
 
+  // Convert 24-hour time to 12-hour time format (AM/PM)
+  const formatTimeTo12Hour = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    let hoursInt = parseInt(hours);
+    const ampm = hoursInt >= 12 ? "PM" : "AM";
+    hoursInt = hoursInt % 12;
+    hoursInt = hoursInt ? hoursInt : 12; // the hour '0' should be '12'
+    return `${hoursInt}:${minutes} ${ampm}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
   
+    // Convert the time to 12-hour format before sending it
+    const formattedTime = formatTimeTo12Hour(time);
+
     const bookingData = {
       name,
       phone,
@@ -37,6 +51,7 @@ export default function BookingPage() {
       pickupAddress: pickup.address || "", // Store a copy of the pickup address
       destinationAddress: destination.address || "", // Store a copy of the destination address
       date,
+      time: formattedTime, // Store the formatted time
     };
   
     try {
@@ -53,6 +68,7 @@ export default function BookingPage() {
         setPickup({ address: "", lat: 0, lng: 0 });
         setDestination({ address: "", lat: 0, lng: 0 });
         setDate("");
+        setTime(""); // Reset time after submission
       } else {
         alert("Booking failed!");
       }
@@ -85,8 +101,9 @@ export default function BookingPage() {
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
           <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone number" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
           <LocationInput label="Pickup Location" onSelect={(address, lat, lng) => setPickup({ address, lat, lng })} />
-          <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
           
           {/* Submit Button with Loading Spinner */}
           <button type="submit" className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
