@@ -101,8 +101,8 @@ export default function BookingPage() {
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
           <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone number" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
           <LocationInput label="Pickup Location" onSelect={(address, lat, lng) => setPickup({ address, lat, lng })} />
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Date" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} placeholder="Time" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
           <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
           
           {/* Submit Button with Loading Spinner */}
