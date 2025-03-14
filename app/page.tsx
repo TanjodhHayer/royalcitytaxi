@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0);  // No need for 'mounted' state anymore
+  const [currentIndex, setCurrentIndex] = useState(0); 
 
   const images = [
     "/assets/royal-city-taxi.jpg",
