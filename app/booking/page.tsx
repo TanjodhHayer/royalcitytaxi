@@ -3,14 +3,18 @@ import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import LocationInput from "../components/LocationInputs";
 import { useRouter } from "next/navigation";
-import { User } from "firebase/auth"; 
+import { User } from "firebase/auth";
+import DatePicker from "react-datepicker";
+import { FaCalendarAlt } from "react-icons/fa";
+import "react-datepicker/dist/react-datepicker.css";
+import { IoTimeOutline } from "react-icons/io5";
 
 export default function BookingPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [pickup, setPickup] = useState({ address: "", lat: 0, lng: 0 });
   const [destination, setDestination] = useState({ address: "", lat: 0, lng: 0 });
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState("");
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -39,7 +43,7 @@ export default function BookingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-  
+    
     // Convert the time to 12-hour format before sending it
     const formattedTime = formatTimeTo12Hour(time);
 
@@ -50,24 +54,24 @@ export default function BookingPage() {
       destination,
       pickupAddress: pickup.address || "", // Store a copy of the pickup address
       destinationAddress: destination.address || "", // Store a copy of the destination address
-      date,
+      date: date ? date.toISOString().split("T")[0] : "", // Format date as YYYY-MM-DD
       time: formattedTime, // Store the formatted time
     };
-  
+
     try {
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
       });
-  
+
       if (response.ok) {
         alert(`Booking confirmed for ${name}!`);
         setName("");
         setPhone("");
         setPickup({ address: "", lat: 0, lng: 0 });
         setDestination({ address: "", lat: 0, lng: 0 });
-        setDate("");
+        setDate(null);
         setTime(""); // Reset time after submission
       } else {
         alert("Booking failed!");
@@ -76,8 +80,6 @@ export default function BookingPage() {
       setLoading(false);
     }
   };
-  
-  
 
   if (authLoading) {
     return <div className="text-center text-white text-xl">Loading...</div>;
@@ -99,14 +101,54 @@ export default function BookingPage() {
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
-          <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone number" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => {
+              // Only allow numbers and dashes in the input
+              const value = e.target.value.replace(/[^0-9-]/g, "");
+              setPhone(value);
+            }}
+            placeholder="Enter your phone number"
+            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+            required
+          />
+
           <LocationInput label="Pickup Location" onSelect={(address, lat, lng) => setPickup({ address, lat, lng })} />
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Date" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} placeholder="Time" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+
+          <div className="flex items-center space-x-2">
+            {/* Calendar Icon */}
+            <FaCalendarAlt className="text-gray-500 text-xl" />
+
+            {/* DatePicker */}
+            <DatePicker
+              id="date"
+              selected={date}
+              onChange={(date: Date | null) => setDate(date)}
+              dateFormat="MMMM d, yyyy"
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+              required
+            />
+          </div>
+          <div className="flex items-center space-x-2">
+            <IoTimeOutline className="text-gray-500 text-xl"></IoTimeOutline>
+              <input
+                type="time"
+                id="time"
+                value={time || ""}
+                onChange={(e) => setTime(e.target.value)}
+                className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+                required
+              />
+          </div>
           <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
-          
+
           {/* Submit Button with Loading Spinner */}
-          <button type="submit" className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={loading}>
+          <button
+            type="submit"
+            className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            disabled={loading}
+          >
             {loading ? (
               <>
                 <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
