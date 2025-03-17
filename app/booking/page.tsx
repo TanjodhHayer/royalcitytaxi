@@ -65,19 +65,35 @@ export default function BookingPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
+        
       });
+      
 
       if (response.ok) {
-        alert(`Booking confirmed for ${name}!`);
-        setName("");
-        setPhone("");
-        setPickup({ address: "", lat: 0, lng: 0 });
-        setDestination({ address: "", lat: 0, lng: 0 });
-        setDate(null);
-        setTime(""); // Reset time after submission
+        // Send the email after the booking is confirmed
+        const emailResponse = await fetch("/api/sendBookingEmail", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookingData),
+        });
+  
+        if (emailResponse.ok) {
+          alert(`Booking confirmed for ${name}!`);
+          setName("");
+          setPhone("");
+          setPickup({ address: "", lat: 0, lng: 0 });
+          setDestination({ address: "", lat: 0, lng: 0 });
+          setDate(null);
+          setTime(""); // Reset time after submission
+        } else {
+          alert("Failed to send booking email!");
+        }
       } else {
         alert("Booking failed!");
       }
+    } catch (error) {
+      console.error("Error submitting booking or sending email:", error);
+      alert("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }

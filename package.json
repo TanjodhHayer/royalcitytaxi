@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.5",
+    "@sendgrid/mail": "^8.1.4",
     "firebase": "^11.3.0",
     "firebase-admin": "^13.1.0",
     "lodash.debounce": "^4.0.8",

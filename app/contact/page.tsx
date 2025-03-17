@@ -100,7 +100,7 @@ export default function ContactPage() {
             <input
               type="tel"
               name="phone"
-              pattern="[0-9]{10}"
+              pattern="[0-9-]{10,}"
               placeholder="Enter your phone number"
               className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
               value={formData.phone}

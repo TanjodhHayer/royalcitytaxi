@@ -1,8 +1,7 @@
-// app/api/contact/route.ts
 import { db } from "@/lib/firebaseClient";
 import { collection, addDoc } from "firebase/firestore";
-
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   const { name, email, phone, message } = await req.json();
@@ -19,10 +18,37 @@ export async function POST(req: Request) {
       message,
       timestamp: new Date(),
     });
+
+    // Set up Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER, // Your Gmail address
+        pass: process.env.GMAIL_APP_PASSWORD, // App Password
+      },
+    });
+
+    // Email options with multiple recipients
+    const mailOptions = {
+      from: process.env.GMAIL_USER,
+      to: ["dispatch@royalcitytaxi.com", "manager@royalcitytaxi.com"], // Add multiple emails here
+      subject: `New Message From from ${name}`,
+      text: `You have received a new message:
+      
+      Name: ${name}
+      Email: ${email}
+      Phone: ${phone}
+      Message: ${message}
+      
+      Sent from the royalcitytaxi website contact form.`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
     return NextResponse.json({ message: "Message sent!" });
   } catch (error) {
-    console.error(error);  // Log the error
+    console.error("Error sending message:", error);
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
   }
-  
 }
