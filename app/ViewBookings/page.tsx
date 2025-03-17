@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebaseClient";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { query, orderBy } from "firebase/firestore";
 
 // Booking Type Interface
 interface Booking {
@@ -32,8 +33,9 @@ export default function ViewBookings() {
     const fetchBookings = async () => {
       try {
         const bookingRef = collection(db, "bookings");
-        const snapshot = await getDocs(bookingRef);
-
+        const q = query(bookingRef, orderBy("createdAt", "desc")); // Order by booking time (newest first)
+        const snapshot = await getDocs(q);
+        
         if (snapshot.empty) {
           setBookings([]);
         } else {
@@ -41,7 +43,7 @@ export default function ViewBookings() {
             id: doc.id,
             ...doc.data(),
           })) as Booking[];
-
+    
           setBookings(bookingsList);
         }
       } catch (error) {
