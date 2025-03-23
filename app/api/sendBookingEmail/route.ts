@@ -9,13 +9,13 @@ export async function POST(req: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.GMAIL_USER, // Load from .env.local
-        pass: process.env.GMAIL_APP_PASSWORD, // Load from .env.local
+        user: process.env.NEXT_PUBLIC_GMAIL_USER, // Load from .env.local
+        pass: process.env.NEXT_PUBLIC_GMAIL_APP_PASSWORD, // Load from .env.local
       },
     });
 
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: process.env.NEXT_PUBLIC_GMAIL_USER,
       to: "dispatch@royalcitytaxi.com",
       subject: `Booking Confirmation for ${bookingData.name}`,
       text: `Booking details:

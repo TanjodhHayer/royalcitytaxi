@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoTimeOutline } from "react-icons/io5";
-import { serverTimestamp } from "firebase/firestore";
+
 
 export default function BookingPage() {
   const [name, setName] = useState("");
@@ -57,7 +57,7 @@ export default function BookingPage() {
       destinationAddress: destination.address || "", // Store a copy of the destination address
       date: date ? date.toISOString().split("T")[0] : "", // Format date as YYYY-MM-DD
       time: formattedTime, // Store the formatted time
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
     };
 
     try {

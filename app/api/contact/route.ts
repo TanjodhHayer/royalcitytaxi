@@ -23,14 +23,14 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.GMAIL_USER, // Your Gmail address
-        pass: process.env.GMAIL_APP_PASSWORD, // App Password
+        user: process.env.NEXT_PUBLIC_GMAIL_USER, // Your Gmail address
+        pass: process.env.NEXT_PUBLIC_GMAIL_APP_PASSWORD, // App Password
       },
     });
 
     // Email options with multiple recipients
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: process.env.NEXT_PUBLIC_GMAIL_USER,
       to: ["dispatch@royalcitytaxi.com", "manager@royalcitytaxi.com"], // Add multiple emails here
       subject: `New Message From from ${name}`,
       text: `You have received a new message:
