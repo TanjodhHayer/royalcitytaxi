@@ -9,6 +9,7 @@ interface Booking {
   id: string;
   name: string;
   phone: number;
+  email: string;
   pickup: {
     address: string;
     lat: number;
@@ -86,6 +87,7 @@ export default function ViewBookings() {
             <tr>
               <th className="p-4 text-sm font-semibold tracking-wide text-center">Name</th>
               <th className="p-4 text-sm font-semibold tracking-wide text-center">Phone</th>
+              <th className="p-4 text-sm font-semibold tracking-wide text-center">Email</th>
               <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup</th>
               <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup Date</th>
               <th className="p-4 text-sm font-semibold tracking-wide text-center">Pickup Time</th>
@@ -101,6 +103,7 @@ export default function ViewBookings() {
                 >
                   <td className="p-4 text-sm text-gray-300 font-bold text-center">{booking.name}</td>
                   <td className="p-4 text-sm text-gray-300 text-center">{booking.phone}</td>
+                  <td className="p-4 text-sm text-gray-300 text-center">{booking.email}</td>
                   <td className="p-4 text-sm text-gray-300 text-center">{booking.pickup.address}</td>
                   <td className="p-4 text-sm text-gray-300 text-center">{booking.date}</td>
                   <td className="p-4 text-sm text-gray-300 text-center">{booking.time}</td>
@@ -143,6 +146,9 @@ export default function ViewBookings() {
                 </div>
                 <div className="text-sm text-gray-300">
                   <span className="font-semibold">Phone:</span> {booking.phone}
+                </div>
+                <div className="text-sm text-gray-300">
+                  <span className="font-semibold">Email:</span> {booking.email}
                 </div>
               </div>
             </div>

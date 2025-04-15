@@ -16,11 +16,12 @@ export async function POST(req: NextRequest) {
 
     const mailOptions = {
       from: process.env.NEXT_PUBLIC_GMAIL_USER,
-      to: "dispatch@royalcitytaxi.com",
+      to: "tanjodhhayer@gmail.com",
       subject: `Booking Confirmation for ${bookingData.name}`,
       text: `Booking details:
       Name: ${bookingData.name}
       Phone: ${bookingData.phone}
+      Email: ${bookingData.email}
       Pickup Location: ${bookingData.pickupAddress}
       Destination: ${bookingData.destinationAddress}
       Date: ${bookingData.date}

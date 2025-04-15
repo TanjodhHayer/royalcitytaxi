@@ -9,9 +9,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoTimeOutline } from "react-icons/io5";
 
-
 export default function BookingPage() {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [pickup, setPickup] = useState({ address: "", lat: 0, lng: 0 });
   const [destination, setDestination] = useState({ address: "", lat: 0, lng: 0 });
@@ -50,6 +50,7 @@ export default function BookingPage() {
 
     const bookingData = {
       name,
+      email, // included email in the booking data
       phone,
       pickup,
       destination,
@@ -65,10 +66,8 @@ export default function BookingPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
-        
       });
       
-
       if (response.ok) {
         // Send the email after the booking is confirmed
         const emailResponse = await fetch("/api/sendBookingEmail", {
@@ -79,12 +78,14 @@ export default function BookingPage() {
   
         if (emailResponse.ok) {
           alert(`Booking confirmed for ${name}!`);
+          // Reset fields after successful booking
           setName("");
+          setEmail("");
           setPhone("");
           setPickup({ address: "", lat: 0, lng: 0 });
           setDestination({ address: "", lat: 0, lng: 0 });
           setDate(null);
-          setTime(""); // Reset time after submission
+          setTime("");
         } else {
           alert("Failed to send booking email!");
         }
@@ -118,7 +119,23 @@ export default function BookingPage() {
       <h1 className="text-4xl font-bold text-red-500 mb-6">Book a Ride</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500" required />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+            required
+          />
+          {/* New Email Field */}
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email address"
+            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+            required
+          />
           <input
             type="tel"
             value={phone}
@@ -149,15 +166,15 @@ export default function BookingPage() {
             />
           </div>
           <div className="flex items-center space-x-2">
-            <IoTimeOutline className="text-gray-500 text-xl"></IoTimeOutline>
-              <input
-                type="time"
-                id="time"
-                value={time || ""}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
-                required
-              />
+            <IoTimeOutline className="text-gray-500 text-xl" />
+            <input
+              type="time"
+              id="time"
+              value={time || ""}
+              onChange={(e) => setTime(e.target.value)}
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+              required
+            />
           </div>
           <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
 
