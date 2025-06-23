@@ -9,6 +9,61 @@ import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoTimeOutline } from "react-icons/io5";
 
+// Fare constants
+const FLAG_RATE = 3.75; // base charge
+const PER_KM_RATE = 2.18; // per km charge
+
+// Use Google Maps Distance Matrix API to get driving distance in km
+function getDrivingDistance(
+  origin: { lat: number; lng: number },
+  destination: { lat: number; lng: number }
+): Promise<number> {
+  return new Promise((resolve, reject) => {
+    if (!window.google || !window.google.maps) {
+      reject("Google Maps API not loaded");
+      return;
+    }
+
+    const service = new window.google.maps.DistanceMatrixService();
+
+    service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        unitSystem: window.google.maps.UnitSystem.METRIC,
+      },
+      (response, status) => {
+        if (status !== "OK") {
+          reject(`DistanceMatrixService error: ${status}`);
+          return;
+        }
+
+        if (!response) {
+          reject("DistanceMatrixService returned null response");
+          return;
+        }
+
+        const element = response.rows?.[0]?.elements?.[0];
+        if (!element) {
+          reject("DistanceMatrixService response missing elements");
+          return;
+        }
+
+        if (element.status !== "OK") {
+          reject(`Element error: ${element.status}`);
+          return;
+        }
+
+        // distance.value is in meters
+        const distanceInKm = element.distance.value / 1000;
+        resolve(distanceInKm);
+      }
+    );
+  });
+}
+
+
 export default function BookingPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +75,8 @@ export default function BookingPage() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [estimatedFare, setEstimatedFare] = useState<number | null>(null);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -31,33 +88,49 @@ export default function BookingPage() {
     return () => unsubscribe();
   }, []);
 
+  // Calculate estimated fare whenever pickup or destination changes
+  useEffect(() => {
+    if (pickup.lat !== 0 && destination.lat !== 0) {
+      getDrivingDistance(pickup, destination)
+        .then((distanceKm) => {
+          const fare = FLAG_RATE + PER_KM_RATE * distanceKm;
+          setEstimatedFare(Number(fare.toFixed(2)));
+        })
+        .catch((err) => {
+          console.error("Failed to calculate driving distance:", err);
+          setEstimatedFare(null);
+        });
+    } else {
+      setEstimatedFare(null);
+    }
+  }, [pickup, destination]);
+
   // Convert 24-hour time to 12-hour time format (AM/PM)
   const formatTimeTo12Hour = (time: string) => {
     const [hours, minutes] = time.split(":");
     let hoursInt = parseInt(hours);
     const ampm = hoursInt >= 12 ? "PM" : "AM";
     hoursInt = hoursInt % 12;
-    hoursInt = hoursInt ? hoursInt : 12; // the hour '0' should be '12'
+    hoursInt = hoursInt ? hoursInt : 12;
     return `${hoursInt}:${minutes} ${ampm}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Convert the time to 12-hour format before sending it
+
     const formattedTime = formatTimeTo12Hour(time);
 
     const bookingData = {
       name,
-      email, // included email in the booking data
+      email,
       phone,
       pickup,
       destination,
-      pickupAddress: pickup.address || "", // Store a copy of the pickup address
-      destinationAddress: destination.address || "", // Store a copy of the destination address
-      date: date ? date.toISOString().split("T")[0] : "", // Format date as YYYY-MM-DD
-      time: formattedTime, // Store the formatted time
+      pickupAddress: pickup.address || "",
+      destinationAddress: destination.address || "",
+      date: date ? date.toISOString().split("T")[0] : "",
+      time: formattedTime,
       createdAt: new Date(),
     };
 
@@ -67,18 +140,16 @@ export default function BookingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
       });
-      
+
       if (response.ok) {
-        // Send the email after the booking is confirmed
         const emailResponse = await fetch("/api/sendBookingEmail", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(bookingData),
         });
-  
+
         if (emailResponse.ok) {
           alert(`Booking confirmed for ${name}!`);
-          // Reset fields after successful booking
           setName("");
           setEmail("");
           setPhone("");
@@ -86,6 +157,7 @@ export default function BookingPage() {
           setDestination({ address: "", lat: 0, lng: 0 });
           setDate(null);
           setTime("");
+          setEstimatedFare(null);
         } else {
           alert("Failed to send booking email!");
         }
@@ -108,8 +180,18 @@ export default function BookingPage() {
     return (
       <div className="flex flex-col items-center justify-center bg-gray-900 text-white min-h-screen p-6">
         <h1 className="text-2xl font-bold text-red-500">You must be logged in to book a ride</h1>
-        <button className="mt-4 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-500" onClick={() => router.push("/")}>Go to Home</button>
-        <button className="mt-4 bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400" onClick={() => router.push("/login")}>Go to Login</button>
+        <button
+          className="mt-4 bg-gray-600 px-4 py-2 rounded-lg text-white hover:bg-gray-500"
+          onClick={() => router.push("/")}
+        >
+          Go to Home
+        </button>
+        <button
+          className="mt-4 bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-400"
+          onClick={() => router.push("/login")}
+        >
+          Go to Login
+        </button>
       </div>
     );
   }
@@ -127,7 +209,6 @@ export default function BookingPage() {
             className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
             required
           />
-          {/* New Email Field */}
           <input
             type="email"
             value={email}
@@ -140,7 +221,6 @@ export default function BookingPage() {
             type="tel"
             value={phone}
             onChange={(e) => {
-              // Only allow numbers and dashes in the input
               const value = e.target.value.replace(/[^0-9-]/g, "");
               setPhone(value);
             }}
@@ -152,10 +232,7 @@ export default function BookingPage() {
           <LocationInput label="Pickup Location" onSelect={(address, lat, lng) => setPickup({ address, lat, lng })} />
 
           <div className="flex items-center space-x-2">
-            {/* Calendar Icon */}
             <FaCalendarAlt className="text-gray-500 text-xl" />
-
-            {/* DatePicker */}
             <DatePicker
               id="date"
               selected={date}
@@ -165,6 +242,7 @@ export default function BookingPage() {
               required
             />
           </div>
+
           <div className="flex items-center space-x-2">
             <IoTimeOutline className="text-gray-500 text-xl" />
             <input
@@ -176,19 +254,44 @@ export default function BookingPage() {
               required
             />
           </div>
+
           <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
 
-          {/* Submit Button with Loading Spinner */}
+          {/* Estimated Fare Display */}
+          {estimatedFare !== null && (
+            <div className="text-lg text-yellow-300 font-semibold text-center mt-2">
+              Estimated Fare: ${estimatedFare} CAD
+            </div>
+          )}
+
           <button
             type="submit"
-            className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={loading}
           >
             {loading ? (
               <>
-                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
                 </svg>
                 Booking...
               </>

@@ -18,22 +18,24 @@ export default function LocationInput({ label, onSelect }: LocationInputProps) {
         autocompleteRef.current.addListener("place_changed", () => {
           const place = autocompleteRef.current?.getPlace();
           if (place && place.geometry) {
-            onSelect(
-              place.formatted_address || "",
-              place.geometry.location?.lat() || 0,
-              place.geometry.location?.lng() || 0
-            );
-            setManualAddress(place.formatted_address || ""); // Keep UI updated
+            const address = place.formatted_address || "";
+            const lat = place.geometry.location?.lat() || 0;
+            const lng = place.geometry.location?.lng() || 0;
+
+            setManualAddress(address);
+            onSelect(address, lat, lng); // ✅ correct lat/lng
           }
         });
       }
     }
   }, [onSelect]);
 
-  // Handle manual typing (if Google Autocomplete is down)
+  // Optional: Allow manual typing but DO NOT trigger onSelect with lat/lng = 0
   const handleManualInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setManualAddress(e.target.value);
-    onSelect(e.target.value, 0, 0); // Set lat/lng to 0 since we don’t have real values
+
+    // DO NOT call onSelect here — wait for autocomplete to resolve
+    // Or implement a fallback geocoding API if needed
   };
 
   return (
@@ -43,7 +45,7 @@ export default function LocationInput({ label, onSelect }: LocationInputProps) {
         ref={inputRef}
         type="text"
         value={manualAddress}
-        onChange={handleManualInput} // Allow manual typing
+        onChange={handleManualInput}
         className="w-full p-2 border border-gray-600 rounded bg-gray-900 text-white"
         placeholder="Enter location"
       />
