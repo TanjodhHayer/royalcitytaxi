@@ -17,16 +17,21 @@ export async function POST(req: NextRequest) {
     const mailOptions = {
       from: process.env.NEXT_PUBLIC_GMAIL_USER,
       to: "dispatch@royalcitytaxi.com",
-      subject: `Booking Confirmation for ${bookingData.name}`,
-      text: `Booking details:
-      Name: ${bookingData.name}
-      Phone: ${bookingData.phone}
-      Email: ${bookingData.email}
-      Pickup Location: ${bookingData.pickupAddress}
-      Destination: ${bookingData.destinationAddress}
-      Date: ${bookingData.date}
-      Time: ${bookingData.time}`,
+      subject: `Automated Booking Confirmation for ${bookingData.name}`,
+      text: `This is an automated notification. Please confirm the booking by contacting the customer directly using the information below.
+    
+      Booking Details:
+      - Name: ${bookingData.name}
+      - Phone: ${bookingData.phone}
+      - Email: ${bookingData.email}
+      - Pickup Location: ${bookingData.pickupAddress}
+      - Destination: ${bookingData.destinationAddress}
+      - Date: ${bookingData.date}
+      - Time: ${bookingData.time}
+      
+      Thank you.`
     };
+    
 
     // Send the email
     await transporter.sendMail(mailOptions);

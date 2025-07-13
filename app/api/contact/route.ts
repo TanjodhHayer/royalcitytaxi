@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       from: process.env.NEXT_PUBLIC_GMAIL_USER,
       to: ["dispatch@royalcitytaxi.com", "manager@royalcitytaxi.com"], // Add multiple emails here
       subject: `New Message From from ${name}`,
-      text: `You have received a new message:
+      text: `This is an automated notification. Contact the customer directly using the information below if responding.
       
       Name: ${name}
       Email: ${email}
