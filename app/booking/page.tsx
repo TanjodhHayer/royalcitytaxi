@@ -311,7 +311,7 @@ export default function BookingPage() {
 
           {showAirportPopup && (
             <div className="mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg text-sm">
-              ✈️ You're headed to the airport! Mention this to your driver to receive a <strong>10% discount</strong> on your fare.
+              ✈️ You&apos;re headed to the airport! Mention this to your driver to receive a <strong>10% discount</strong> on your fare.
             </div>
           )}
 
