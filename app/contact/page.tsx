@@ -4,9 +4,14 @@ import { useState } from "react";
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [success, setSuccess] = useState("");
-
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const showBookingToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 4000);
+  };
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -15,8 +20,6 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -28,15 +31,15 @@ export default function ContactPage() {
       });
 
       if (response.ok) {
-        setSuccess("Message sent! We will get back to you soon.");
+        showBookingToast("Message sent! We will get back to you soon.");
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         const result = await response.json();
-        setError(result.error || "Failed to send the message.");
+        showBookingToast(result.error || "Failed to send the message.");
       }
     } catch (error) {
       console.log(error);
-      setError("Something went wrong. Please try again later.");
+      showBookingToast("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -44,7 +47,13 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 text-white pt-32">
-      <h1 className="text-4xl font-bold text-red-500 mb-6">Contact Us</h1>
+      {showToast && (
+      <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-customRed text-white px-6 py-3 rounded-lg shadow-lg z-50 select-none pointer-events-none animate-fade-in-out">
+        {toastMessage}
+      </div>
+    )}
+
+      <h1 className="text-4xl font-bold text-customRed mb-6">Contact Us</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         {/* Contact Info */}
         <div className="space-y-4 text-center mb-6">
@@ -57,13 +66,13 @@ export default function ContactPage() {
           <p className="text-lg font-semibold">📍 New Westminster, BC</p>
           <p className="text-lg font-semibold">
             📞 Call Us:{" "}
-            <a href="tel:6045266666" className="text-red-500 hover:text-red-400">
+            <a href="tel:6045266666" className="text-customRed hover:text-red-400">
               (604) 526-6666
             </a>
           </p>
           <p className="text-lg font-semibold">
             📧 Email:{" "}
-            <a href="mailto:dispatch@royalcitytaxi.com" className="text-red-500 hover:text-red-400">
+            <a href="mailto:dispatch@royalcitytaxi.com" className="text-customRed hover:text-red-400">
               dispatch@royalcitytaxi.com
             </a>
           </p>
@@ -77,7 +86,7 @@ export default function ContactPage() {
               type="text"
               name="name"
               placeholder="Enter your name"
-              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-customRed"
               value={formData.name}
               onChange={handleChange}
               required
@@ -89,7 +98,7 @@ export default function ContactPage() {
               type="email"
               name="email"
               placeholder="Enter your email"
-              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-customRed"
               value={formData.email}
               onChange={handleChange}
               required
@@ -102,7 +111,7 @@ export default function ContactPage() {
               name="phone"
               pattern="[0-9-]{10,}"
               placeholder="Enter your phone number"
-              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-red-500"
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-customRed"
               value={formData.phone}
               onChange={handleChange}
               required
@@ -113,21 +122,17 @@ export default function ContactPage() {
             <textarea
               name="message"
               placeholder="Enter your message"
-              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white h-32 focus:ring-2 focus:ring-red-500"
+              className="w-full p-3 border border-gray-700 rounded-lg bg-gray-900 text-white h-32 focus:ring-2 focus:ring-customRed"
               value={formData.message}
               onChange={handleChange}
               required
             ></textarea>
           </div>
 
-          {/* Success/Error Messages */}
-          {success && <p className="text-green-500">{success}</p>}
-          {error && <p className="text-red-500">{error}</p>}
-
           {/* Submit Button with Loading */}
           <button
             type="submit"
-            className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`w-full bg-customRed px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             disabled={loading}
           >
             {loading ? (

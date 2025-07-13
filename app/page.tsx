@@ -44,7 +44,7 @@ export default function Home() {
               className="h-auto w-auto"
             />
           <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto">Serving New Westminster since 1941</p>
-          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto"><a href="tel:+16045266666">Call 604-526-6666 </a></p>
+          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto"><a href="tel:+16045266666">604-526-6666 </a></p>
           
       
           <a href="/booking" className="bg-customRed text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-red-600 transition">BOOK A TAXI ONLINE</a>

@@ -12,6 +12,20 @@ import { IoTimeOutline } from "react-icons/io5";
 // Fare constants
 const FLAG_RATE = 3.75; // base charge
 const PER_KM_RATE = 2.18; // per km charge
+const AIRPORT_KEYWORDS = [
+  "airport",
+  "3211 grant mcconachie wy",
+  "vancouver international airport",
+  "vancouver airport",
+  "yvr", 
+  "yvr airport", 
+  "grant mcconachie", 
+  "richmond airport",
+  "3211 Grant McConachie Wy, Richmond, BC V7B 0A4, Canada"
+].map(k => k.toLowerCase());
+
+
+
 
 // Use Google Maps Distance Matrix API to get driving distance in km
 function getDrivingDistance(
@@ -76,9 +90,18 @@ export default function BookingPage() {
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [estimatedFare, setEstimatedFare] = useState<number | null>(null);
-
+  const [showAirportPopup, setShowAirportPopup] = useState(false);
+  const [destinationInput, setDestinationInput] = useState(""); // NEW
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const showBookingToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 4000);
+  };
+  
   const router = useRouter();
-
+  
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -94,7 +117,11 @@ export default function BookingPage() {
       getDrivingDistance(pickup, destination)
         .then((distanceKm) => {
           const fare = FLAG_RATE + PER_KM_RATE * distanceKm;
-          setEstimatedFare(Number(fare.toFixed(2)));
+          setEstimatedFare(Math.ceil(fare));
+          // Airport detection (simple keyword check)
+          const lowerDest = destination.address.toLowerCase();
+          const isAirportMatch = AIRPORT_KEYWORDS.some(keyword => lowerDest.includes(keyword));
+          setShowAirportPopup(isAirportMatch);
         })
         .catch((err) => {
           console.error("Failed to calculate driving distance:", err);
@@ -105,6 +132,19 @@ export default function BookingPage() {
     }
   }, [pickup, destination]);
 
+  useEffect(() => {
+    // Only run if user typed something in drop-off field
+    if (!destinationInput) {
+      setShowAirportPopup(false);
+      return;
+    }
+  
+    const lowerInput = destinationInput.toLowerCase();
+    const matchesAirport = AIRPORT_KEYWORDS.some(keyword => lowerInput.includes(keyword));
+  
+    setShowAirportPopup(matchesAirport);
+  }, [destinationInput]);
+  
   // Convert 24-hour time to 12-hour time format (AM/PM)
   const formatTimeTo12Hour = (time: string) => {
     const [hours, minutes] = time.split(":");
@@ -149,7 +189,7 @@ export default function BookingPage() {
         });
 
         if (emailResponse.ok) {
-          alert(`Booking confirmed for ${name}!`);
+          showBookingToast(`Booking confirmed for ${name}!`);
           setName("");
           setEmail("");
           setPhone("");
@@ -159,14 +199,14 @@ export default function BookingPage() {
           setTime("");
           setEstimatedFare(null);
         } else {
-          alert("Failed to send booking email!");
+          showBookingToast("Failed to send booking email!");
         }
       } else {
-        alert("Booking failed!");
+        showBookingToast("Failed to send booking email!");
       }
     } catch (error) {
       console.error("Error submitting booking or sending email:", error);
-      alert("An error occurred. Please try again.");
+      showBookingToast("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -198,6 +238,12 @@ export default function BookingPage() {
 
   return (
     <div className="flex flex-col items-center w-full h-screen justify-center bg-gray-900 text-white px-6 py-12">
+      {showToast && (
+        <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-customRed text-white px-6 py-3 rounded-lg shadow-lg z-50 select-none pointer-events-none animate-fade-in-out">
+          {toastMessage}
+        </div>
+      )}
+
       <h1 className="text-4xl font-bold text-customRed mb-6">Book a Ride</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -230,6 +276,8 @@ export default function BookingPage() {
           />
 
           <LocationInput label="Pickup Location" onSelect={(address, lat, lng) => setPickup({ address, lat, lng })} />
+          
+
 
           <div className="flex items-center space-x-2">
             <FaCalendarAlt className="text-gray-500 text-xl" />
@@ -254,13 +302,28 @@ export default function BookingPage() {
               required
             />
           </div>
+          
+          <LocationInput
+            label="Drop-off Location"
+            onSelect={(address, lat, lng) => setDestination({ address, lat, lng })}
+            onInputChange={(value) => setDestinationInput(value)} // 👈 track raw input
+          />
 
-          <LocationInput label="Drop-off Location" onSelect={(address, lat, lng) => setDestination({ address, lat, lng })} />
+          {showAirportPopup && (
+            <div className="mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg text-sm">
+              ✈️ You're headed to the airport! Mention this to your driver to receive a <strong>10% discount</strong> on your fare.
+            </div>
+          )}
 
+
+          
           {/* Estimated Fare Display */}
           {estimatedFare !== null && (
             <div className="text-lg text-customRed font-semibold text-center mt-2">
               Estimated Fare: ${estimatedFare} CAD
+              <p className="text-sm text-gray-400 mt-1 italic">
+                * Final fare may vary depending on traffic and route conditions.
+              </p>
             </div>
           )}
 

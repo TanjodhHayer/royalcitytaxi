@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 interface LocationInputProps {
   label: string;
   onSelect: (address: string, lat: number, lng: number) => void;
+  onInputChange?: (value: string) => void;  // optional callback
 }
 
-export default function LocationInput({ label, onSelect }: LocationInputProps) {
+export default function LocationInput({ label, onSelect, onInputChange }: LocationInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const [manualAddress, setManualAddress] = useState("");
@@ -23,24 +24,27 @@ export default function LocationInput({ label, onSelect }: LocationInputProps) {
             const lng = place.geometry.location?.lng() || 0;
 
             setManualAddress(address);
-            onSelect(address, lat, lng); // ✅ correct lat/lng
+            onSelect(address, lat, lng);
           }
         });
       }
     }
   }, [onSelect]);
 
-  // Optional: Allow manual typing but DO NOT trigger onSelect with lat/lng = 0
   const handleManualInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setManualAddress(e.target.value);
-
-    // DO NOT call onSelect here — wait for autocomplete to resolve
-    // Or implement a fallback geocoding API if needed
+    const val = e.target.value;
+    setManualAddress(val);
+    if (onInputChange) onInputChange(val);
   };
 
   return (
     <div>
-      <label className="block text-lg font-semibold mb-1">{label}</label>
+      <label className="block text-lg font-semibold mb-1">
+        {label}
+        <span className="block text-sm text-gray-400 mt-1 ml-0">
+          (Select an address from the suggestions for accurate fare estimate)
+        </span>
+      </label>
       <input
         ref={inputRef}
         type="text"

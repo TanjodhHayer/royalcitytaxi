@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebaseClient";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, query, orderBy } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 
 // Type for Contact Message data
@@ -34,8 +34,9 @@ export default function ViewContactMessages() {
     const fetchMessages = async () => {
       try {
         const messagesRef = collection(db, "contactMessages");
-        const snapshot = await getDocs(messagesRef);
-
+        const q = query(messagesRef, orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
+  
         if (snapshot.empty) {
           setMessages([]);
         } else {
@@ -52,9 +53,10 @@ export default function ViewContactMessages() {
         setLoading(false);
       }
     };
-
+  
     fetchMessages();
   }, []);
+  
 
   const deleteMessage = async (id: string) => {
     try {
