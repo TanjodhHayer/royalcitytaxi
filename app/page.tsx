@@ -43,17 +43,52 @@ export default function Home() {
               height={150}
               className="h-auto w-auto"
             />
-          <p className="text-2xl mt-4 font-semibold text-[#E57373] dark:text-[#F44336] mb-4 font-roboto">Serving New Westminster since 1941</p>
-          <a href="/booking" className="bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-yellow-600 transition">BOOK A TAXI ONLINE</a>
+          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto">Serving New Westminster since 1941</p>
+          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto"><a href="tel:+16045266666">Call 604-526-6666 </a></p>
+          
+      
+          <a href="/booking" className="bg-customRed text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-red-600 transition">BOOK A TAXI ONLINE</a>
+
+          <div className="absolute bottom-8 w-full flex justify-center gap-4 z-10">
+          {/* App Store Image */}
+          <a
+            href="https://apps.apple.com/ca/developer/royal-city-taxi-ltd/id1467020082"
+            target="_blank"
+            rel="noopener noreferrer"
+            
+          >
+            <Image
+              src="/assets/appstore.png"
+              alt="Download on App Store"
+              width={301}
+              height={59}
+              className="rounded-lg shadow-lg transition-transform transform hover:scale-105"
+            />
+          </a>
+          
+          {/* Google Play Image */}
+          <a
+            href="https://play.google.com/store/apps/details?id=com.taxicaller.RoyalCityTaxiLtd.app&pcampaignid=web_share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/assets/googleplay.png"
+              alt="Get it on Google Play"
+              width={301}
+              height={59}
+              className="rounded-lg shadow-lg transition-transform transform hover:scale-105"
+            />
+          </a>
+          </div>
         </div>
       </div>
       
       {/* Welcome Section */}
       <div className="text-center py-12 bg-gray-900 text-white">
-        <h1 className="text-5xl font-extrabold text-[#E57373] dark:text-[#F44336] mb-2 font-roboto">
-        Need a cab?
+        <h1 className="text-5xl font-extrabold text-customRed dark:text-customRed mb-2 font-roboto">
+        <a href="tel:+16045266666">Need a cab?  Call 604-526-6666 </a>
         </h1>
-        <h1 className="text-5xl font-extrabold text-white  mb-2 font-roboto"> <a href="tel:+16045266666"> Call 604-526-6666 </a> </h1>
         <p className="text-lg mt-2 text-[#E0E0E0] font-roboto">
           Serving New Westminster, Queensborough, East Richmond, Annacis Island, Burnaby, Coquitlam, North Surrey, and YVR - Vancouver Airport.
         </p>
@@ -62,17 +97,17 @@ export default function Home() {
       {/* Meter Rates Section */}
       <div className="container mx-auto bg-gray-900">
         <section className="bg-gray-800 shadow-lg rounded-lg p-8 text-center max-w-lg mx-auto">
-          <h2 className="text-2xl font-bold text-[#FFEB3B] mb-4 font-roboto">Meter Rates for Car & Van</h2>
-          <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] mb-2 font-roboto">
-            <strong>Flag:</strong> $3.75
+          <h2 className="text-2xl font-extrabold text-customRed mb-4 font-roboto">Meter Rates for Car & Van</h2>
+          <p className="text-xl text-white dark:text-white ">
+           Flag:$3.75
           </p>
-          <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] mb-2 font-roboto">
-            <strong>Per km:</strong> $2.18
+          <p className="text-xl text-white dark:text-white ">
+            Per km:$2.18
           </p>
-          <p className="text-xl font-semibold text-[#F44336] dark:text-[#E57373] font-roboto mb-2">
-            <strong>Waiting charge:</strong> $38.93 /hour
+          <p className="text-xl text-white dark:text-white ">
+            Waiting charge: $38.93 /hour
           </p>
-          <p className="text-xl  text-[#F44336] dark:text-[#E57373] font-roboto ">
+          <p className="text-xl mt-2 text-white dark:text-white ">
             Rates are different for cargo, contact us for inquiries!
           </p>
         </section>
@@ -117,7 +152,7 @@ export default function Home() {
 
       {/* App Store and Google Play Links */}
       <section className="bg-gray-800 text-center text-white pb-16">
-        <h2 className="text-3xl font-semibold text-yellow-400 mb-4 py-4">Download Our App for Easy Booking</h2>
+        <h2 className="text-3xl font-semibold text-customRed mb-4 py-4">Download Our App for Easy Booking</h2>
         <p className="text-lg text-gray-300 mb-8 px-2">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today!</p>
         <div className="flex justify-center gap-4">
           {/* App Store Image */}

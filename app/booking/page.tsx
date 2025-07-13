@@ -198,7 +198,7 @@ export default function BookingPage() {
 
   return (
     <div className="flex flex-col items-center w-full h-screen justify-center bg-gray-900 text-white px-6 py-12">
-      <h1 className="text-4xl font-bold text-red-500 mb-6">Book a Ride</h1>
+      <h1 className="text-4xl font-bold text-customRed mb-6">Book a Ride</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <input
@@ -259,14 +259,14 @@ export default function BookingPage() {
 
           {/* Estimated Fare Display */}
           {estimatedFare !== null && (
-            <div className="text-lg text-yellow-300 font-semibold text-center mt-2">
+            <div className="text-lg text-customRed font-semibold text-center mt-2">
               Estimated Fare: ${estimatedFare} CAD
             </div>
           )}
 
           <button
             type="submit"
-            className={`w-full bg-red-500 px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${
+            className={`w-full bg-customRed px-4 py-3 rounded-lg text-white text-lg font-semibold hover:bg-red-600 transition flex justify-center items-center gap-2 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

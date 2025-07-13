@@ -81,7 +81,7 @@ export default function Navbar() {
               height={150}
               className="h-auto w-auto cursor-pointer"
             />
-            <h1 className="text-red-600 text-2xl md:text-3xl font-semibold mb-0" style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>ROYAL CITY TAXI</h1>
+            <h1 className="text-customRed text-2xl md:text-4xl font-semibold mb-0" style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>ROYAL CITY TAXI</h1>
           </Link>
 
           

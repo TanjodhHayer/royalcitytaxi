@@ -6,7 +6,7 @@ const ServicePage = () => {
     <div className="bg-gray-900 text-white min-h-screen pt-48">
       {/* Title and Introduction */}
       <section className="text-center">
-        <h1 className="text-5xl font-extrabold text-yellow-400 mb-6">Our Services</h1>
+        <h1 className="text-5xl font-extrabold text-customRed mb-6">Our Services</h1>
         <p className="text-xl text-gray-300 max-w-4xl mx-auto px-2">
           At Royal City Taxi, we pride ourselves on providing reliable, safe, and affordable taxi services for all your transportation needs.
         </p>
@@ -18,7 +18,7 @@ const ServicePage = () => {
           
           {/* Corporate & Event Accounts */}
           <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Corporate & Event Accounts</h2>
+            <h2 className="text-2xl font-bold text-customRed mb-4">Corporate & Event Accounts</h2>
             <p className="text-lg text-gray-300 mb-4">
               We provide tailored solutions for corporate accounts and special events. Whether it&#39;s for employees or customers, we ensure comfortable, reliable, and safe transportation.
             </p>
@@ -37,7 +37,7 @@ const ServicePage = () => {
 
           {/* Airport Transfers */}
           <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Airport Transfers</h2>
+            <h2 className="text-2xl font-bold text-customRed mb-4">Airport Transfers</h2>
             <p className="text-lg text-gray-300 mb-4">
               Get to and from the airport quickly and stress-free. We offer both arrivals and departures services to ensure your travel is smooth. Our drivers track your flight to adjust for any delays or early arrivals.
             </p>
@@ -56,7 +56,7 @@ const ServicePage = () => {
 
           {/* City Rides */}
           <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">City Rides</h2>
+            <h2 className="text-2xl font-bold text-customRed mb-4">City Rides</h2>
             <p className="text-lg text-gray-300 mb-4">
               Whether you need a quick ride across town or a leisurely trip around the city, we offer fast and safe transportation to get you where you need to go. Our drivers know the city inside and out, so you can relax and enjoy the ride.
             </p>
@@ -79,7 +79,7 @@ const ServicePage = () => {
 
           {/* Corporate Services */}
           <div className="service-card bg-gray-800 p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,1)]">
-            <h2 className="text-2xl font-bold text-yellow-400 mb-4">Corporate Services</h2>
+            <h2 className="text-2xl font-bold text-customRed mb-4">Corporate Services</h2>
             <p className="text-lg text-gray-300 mb-4">
               We offer corporate packages that cater to businesses needing reliable transportation for employees and clients.
             </p>
@@ -100,7 +100,7 @@ const ServicePage = () => {
 
       {/* Image Section */}
       <section className="bg-gray-800 text-center text-white">
-        <h2 className="text-3xl font-semibold text-yellow-400 mb-4 py-4">Download Our App for Easy Booking</h2>
+        <h2 className="text-3xl font-semibold text-customRed mb-4 py-4">Download Our App for Easy Booking</h2>
         <p className="text-lg text-gray-300 mb-8 px-2">Experience a hassle-free way to book your rides directly from your smartphone. Download our app and get started today!</p>
         {/* App Store and Google Play Links */}
         <div className="flex justify-center gap-4 pb-16">
