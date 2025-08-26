@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { gtmEvent } from "@/lib/gtm";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0); 
@@ -44,10 +45,35 @@ export default function Home() {
               className="h-auto w-auto"
             />
           <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto">Serving New Westminster since 1941</p>
-          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto"><a href="tel:+16045266666">604-526-6666 </a></p>
+          <p className="text-2xl mt-0 font-semibold text-customRed dark:text-customRed mb-4 font-roboto">
+            <a
+              href="tel:+16045266666"
+              onClick={() =>
+                gtmEvent("phone_call_click", {
+                  category: "engagement",
+                  label: "Header Phone Number",
+                })
+              }
+            >
+              604-526-6666
+            </a>
+          </p>
+
           
       
-          <a href="/booking" className="bg-customRed text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-red-600 transition">BOOK A TAXI ONLINE</a>
+          <a
+          href="/booking"
+          onClick={() =>
+            gtmEvent("book_taxi_click", {
+              category: "engagement",
+              label: "Book Taxi Online Button",
+            })
+          }
+          className="bg-customRed text-black px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-red-600 transition"
+          >
+          BOOK A TAXI ONLINE
+          </a>
+
 
           <div className="absolute bottom-8 w-full flex justify-center gap-4 z-10">
           {/* App Store Image */}
@@ -55,7 +81,12 @@ export default function Home() {
             href="https://apps.apple.com/ca/developer/royal-city-taxi-ltd/id1467020082"
             target="_blank"
             rel="noopener noreferrer"
-            
+            onClick={() =>
+              gtmEvent("app_download_click", {
+                category: "engagement",
+                label: "App Store",
+              })
+            }
           >
             <Image
               src="/assets/appstore.png"
@@ -65,12 +96,18 @@ export default function Home() {
               className="rounded-lg shadow-lg transition-transform transform hover:scale-105"
             />
           </a>
+
           
-          {/* Google Play Image */}
           <a
             href="https://play.google.com/store/apps/details?id=com.taxicaller.RoyalCityTaxiLtd.app&pcampaignid=web_share"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              gtmEvent("app_download_click", {
+                category: "engagement",
+                label: "Google Play",
+              })
+            }
           >
             <Image
               src="/assets/googleplay.png"
@@ -80,6 +117,7 @@ export default function Home() {
               className="rounded-lg shadow-lg transition-transform transform hover:scale-105"
             />
           </a>
+
           </div>
         </div>
       </div>
