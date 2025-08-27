@@ -237,7 +237,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full h-screen justify-center bg-gray-900 text-white px-6 py-12">
+    <div className="flex flex-col items-center w-full min-h-screen justify-center bg-gray-900 text-white px-6 py-24">
       {showToast && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-customRed text-white px-6 py-3 rounded-lg shadow-lg z-50 select-none pointer-events-none animate-fade-in-out">
           {toastMessage}
